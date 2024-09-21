@@ -38,7 +38,10 @@ export default buildConfig({
         delete: () => false,
         update: () => false,
       },
-      fields: [],
+      fields: [{
+        name: 'phone',
+        type: 'text',
+      }],
     },
     {
       slug: 'pages',
