@@ -94,7 +94,7 @@ export default buildConfig({
   admin: {
     autoLogin: {
       email: 'dev@payloadcms.com',
-      password: 'test',
+      password: 'test1',
       prefillOnly: true,
     },
   },
