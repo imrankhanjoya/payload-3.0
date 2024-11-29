@@ -1,6 +1,5 @@
 import {CollectionConfig,FieldHook} from "payload"
 
-
 export const Post: CollectionConfig={
     slug: 'posts',
     auth: true,
