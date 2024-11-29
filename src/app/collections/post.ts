@@ -4,7 +4,7 @@ export const Post: CollectionConfig={
     slug: 'posts',
     auth: true,
     admin: {
-      useAsTitle:"name",
+      useAsTitle:"title",
     },
     access:{
         delete: () => false,
