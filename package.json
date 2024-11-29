@@ -18,7 +18,7 @@
     "generate:importmap": "payload generate:importmap"
   },
   "engines": {
-    "node": "22.x"
+    "node": "^18.20.2 || >=20.9.0"
   },
   "dependencies": {
     "@payloadcms/db-mongodb": "3.0.0-canary.0374de4",
@@ -32,9 +32,8 @@
     "graphql": "^16.8.2",
     "next": "15.0.0-canary.104",
     "payload": "3.0.0-canary.0374de4",
-    "pnpm": "^9.14.3",
-    "react": "^19.0.0-rc-06d0b89e-20240801",
-    "react-dom": "^19.0.0-rc-06d0b89e-20240801",
+    "react": "19.0.0-rc-06d0b89e-20240801",
+    "react-dom": "19.0.0-rc-06d0b89e-20240801",
     "sharp": "0.32.6"
   },
   "devDependencies": {
