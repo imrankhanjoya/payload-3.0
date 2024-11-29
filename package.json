@@ -31,6 +31,7 @@
     "cross-env": "^7.0.3",
     "graphql": "^16.8.2",
     "next": "15.0.0-canary.104",
+    "nvm": "^0.0.4",
     "payload": "3.0.0-canary.0374de4",
     "react": "19.0.0-rc-06d0b89e-20240801",
     "react-dom": "19.0.0-rc-06d0b89e-20240801",
