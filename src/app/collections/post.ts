@@ -6,6 +6,12 @@ export const Post: CollectionConfig={
     admin: {
       useAsTitle:"name",
     },
+    access:{
+        delete: () => false,
+        update: () => false,
+        create: () => true,
+        read: () => true,
+    },
     fields: [{
       name: 'title',
       type: 'text',
