@@ -23,6 +23,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
+import {Post} from "@/app/collections/post"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -43,6 +44,7 @@ export default buildConfig({
         type: 'text',
       }],
     },
+    Post,
     {
       slug: 'pages',
       admin: {
