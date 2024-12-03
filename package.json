@@ -36,7 +36,7 @@
     "payload": "3.0.0-canary.0374de4",
     "react": "19.0.0-rc-06d0b89e-20240801",
     "react-dom": "19.0.0-rc-06d0b89e-20240801",
-    "sharp": "0.32.6"
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@payloadcms/graphql": "3.0.0-canary.0374de4",
