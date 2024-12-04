@@ -1,5 +1,4 @@
 import path from 'path'
-// import { postgresAdapter } from '@payloadcms/db-postgres'
 import { en } from 'payload/i18n/en'
 import {
   AlignFeature,
@@ -23,13 +22,20 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-import {Post} from "@/app/collections/post"
+import { Post } from "@/app/collections/post"
+import ImageKit from 'imagekit'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+// Initialize ImageKit
+const imagekit = new ImageKit({
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
+})
+
 export default buildConfig({
-  //editor: slateEditor({}),
   editor: lexicalEditor(),
   collections: [
     {
@@ -63,39 +69,56 @@ export default buildConfig({
     },
     {
       slug: 'media',
-      upload:{
-        staticDir: 'media',
-        imageSizes: [
-          {
-            name: 'thumbnail',
-            width: 400,
-            height: 300,
-            position: 'centre',
-          },
-          {
-            name: 'card',
-            width: 768,
-            height: 1024,
-            position: 'centre',
-          },
-          {
-            name: 'tablet',
-            width: 1024,
-            // By specifying `undefined` or leaving a height undefined,
-            // the image will be sized to a certain width,
-            // but it will retain its original aspect ratio
-            // and calculate a height automatically.
-            height: undefined,
-            position: 'centre',
-          },
-        ],
-        adminThumbnail: 'thumbnail',
-        mimeTypes: ['image/*'],
+      upload: {
+        handler: async ({ data }) => {
+          const { file } = data
+          try {
+            // Upload the file to ImageKit
+            const result = await imagekit.upload({
+              file: file.path, // Path to the file
+              fileName: file.filename, // Optional custom file name
+              folder: 'payload_media', // Optional folder in ImageKit
+            })
+
+            // Return metadata for the uploaded file
+            return {
+              url: result.url,
+              fileName: result.name,
+              mimeType: file.mimetype,
+            }
+          } catch (err) {
+            console.error('ImageKit Upload Error:', err)
+            throw new Error('File upload to ImageKit failed.')
+          }
+        },
+        mimeTypes: ['image/*'], // Restrict to image uploads
       },
       fields: [
         {
-          name: 'text',
+          name: 'title',
           type: 'text',
+          required: true,
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+        },
+        {
+          name: 'tags',
+          type: 'array',
+          fields: [
+            {
+              name: 'tag',
+              type: 'text',
+            },
+          ],
+        },
+        {
+          name: 'url',
+          type: 'text',
+          admin: {
+            readOnly: true,
+          },
         },
       ],
     },
@@ -104,23 +127,12 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  // db: postgresAdapter({
-  //   pool: {
-  //     connectionString: process.env.POSTGRES_URI || ''
-  //   }
-  // }),
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || '',
   }),
-
-  /**
-   * Payload can now accept specific translations from 'payload/i18n/en'
-   * This is completely optional and will default to English if not provided
-   */
   i18n: {
     supportedLanguages: { en },
   },
-
   admin: {
     autoLogin: {
       email: 'dev@payloadcms.com',
@@ -144,11 +156,5 @@ export default buildConfig({
       })
     }
   },
-  // Sharp is now an optional dependency -
-  // if you want to resize images, crop, set focal point, etc.
-  // make sure to install it and pass it to the config.
-
-  // This is temporary - we may make an adapter pattern
-  // for this before reaching 3.0 stable
   sharp,
 })

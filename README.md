@@ -90,3 +90,7 @@ Open an issue on this repo at `https://github.com/payloadcms/payload-3.0-demo` w
 AIzaSyACTx8O18Ovmk3RklUA3eT2ijLaYlY-Qhw
 AIzaSyACTx8O18Ovmk3RklUA3eT2ijLaYlY-Qhw
 AIzaSyACTx8O18Ovmk3RklUA3eT2ijLaYlY-Qhw
+
+
+https://ik.imagekit.io/0jchfbs0s/path/to/myimage.jpg
+
