@@ -1,22 +1,7 @@
 import path from 'path'
 import { en } from 'payload/i18n/en'
 import {
-  AlignFeature,
-  BlockquoteFeature,
-  BlocksFeature,
-  BoldFeature,
-  ChecklistFeature,
-  HeadingFeature,
-  IndentFeature,
-  InlineCodeFeature,
-  ItalicFeature,
   lexicalEditor,
-  LinkFeature,
-  OrderedListFeature,
-  ParagraphFeature,
-  RelationshipFeature,
-  UnorderedListFeature,
-  UploadFeature,
 } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
@@ -70,37 +55,29 @@ export default buildConfig({
     {
       slug: 'media',
       upload: {
-        staticDir: path.join(dirname, 'media'), // Local directory for fallback storage
-        adminThumbnail: ({ doc }) => (doc?.url ? doc.url : ""), // Use ImageKit URL or fallback
-        mimeTypes: ['image/*'], // Restrict uploads to images
-        hooks: {
-          afterChange: [
-            async ({ data, req }) => {
-              try {
-                const filePath = path.join('media', data.filename) // Local file path
-                const result = await imagekit.upload({
-                  file: filePath, // File path to upload
-                  fileName: data.filename, // ImageKit file name
-                  folder: 'payload_media', // Folder in ImageKit
-                })
-
-                // Update the document in Payload with the ImageKit URL
-                await req.payload.update({
-                  collection: 'media',
-                  id: data.id,
-                  data: {
-                    url: result.url,
-                  },
-                })
-
-                return result
-              } catch (err) {
-                console.error('ImageKit Upload Error:', err)
-                throw new Error('Image upload to ImageKit failed.')
-              }
-            },
-          ],
-        },
+        staticDir: path.join(dirname, 'media'),
+        adminThumbnail: ({ doc }) => (doc?.url ? doc.url.toString() : null),
+        mimeTypes: ['image/*'],
+        imageSizes: [
+          {
+            name: 'thumbnail',
+            width: 400,
+            height: 300,
+            position: 'centre',
+          },
+          {
+            name: 'card',
+            width: 768,
+            height: 1024,
+            position: 'centre',
+          },
+          {
+            name: 'tablet',
+            width: 1024,
+            height: undefined, // Retain aspect ratio
+            position: 'centre',
+          },
+        ],
       },
       fields: [
         {
@@ -130,6 +107,34 @@ export default buildConfig({
           },
         },
       ],
+      hooks: {
+        afterChange: [
+          async ({ data, req }) => {
+            try {
+              const filePath = path.join('media', data.filename)
+              const result = await imagekit.upload({
+                file: filePath,
+                fileName: data.filename,
+                folder: 'payload_media',
+              })
+
+              // Update the document with the ImageKit URL
+              await req.payload.update({
+                collection: 'media',
+                id: data.id,
+                data: {
+                  url: result.url,
+                },
+              })
+
+              return result
+            } catch (err) {
+              console.error('ImageKit Upload Error:', err)
+              throw new Error('Image upload to ImageKit failed.')
+            }
+          },
+        ],
+      },
     },
   ],
   secret: process.env.PAYLOAD_SECRET || '',
