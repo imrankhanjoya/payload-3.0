@@ -23,8 +23,7 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-import { Post } from "@/app/collections/post"
-// const cloudinary = require('./cloudinary')
+import {Post} from "@/app/collections/post"
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -40,12 +39,10 @@ export default buildConfig({
         delete: () => false,
         update: () => false,
       },
-      fields: [
-        {
-          name: 'phone',
-          type: 'text',
-        },
-      ],
+      fields: [{
+        name: 'phone',
+        type: 'text',
+      }],
     },
     Post,
     {
@@ -66,54 +63,39 @@ export default buildConfig({
     },
     {
       slug: 'media',
-      upload: {
-        handler: async ({ data }) => {
-          const { file } = data
-          // try {
-          //   const result = await cloudinary.uploader.upload(file.path, {
-          //     folder: 'payload_media', // Specify folder name in Cloudinary
-          //   })
-
-            // Return metadata for the uploaded file
-            // return {
-            //   url: result.secure_url,
-            //   fileName: result.public_id,
-            //   mimeType: result.resource_type,
-            // }
-          // } catch (err) {
-          //   console.error('Cloudinary Upload Error:', err)
-          //   throw new Error('File upload to Cloudinary failed.')
-          // }
-          throw new Error('File upload to Cloudinary failed.')
-        },
-        mimeTypes: ['image/*'], // Restrict to image uploads
+      upload:{
+        staticDir: 'media',
+        imageSizes: [
+          {
+            name: 'thumbnail',
+            width: 400,
+            height: 300,
+            position: 'centre',
+          },
+          {
+            name: 'card',
+            width: 768,
+            height: 1024,
+            position: 'centre',
+          },
+          {
+            name: 'tablet',
+            width: 1024,
+            // By specifying `undefined` or leaving a height undefined,
+            // the image will be sized to a certain width,
+            // but it will retain its original aspect ratio
+            // and calculate a height automatically.
+            height: undefined,
+            position: 'centre',
+          },
+        ],
+        adminThumbnail: 'thumbnail',
+        mimeTypes: ['image/*'],
       },
       fields: [
         {
-          name: 'title',
+          name: 'text',
           type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-        },
-        {
-          name: 'tags',
-          type: 'array',
-          fields: [
-            {
-              name: 'tag',
-              type: 'text',
-            },
-          ],
-        },
-        {
-          name: 'url',
-          type: 'text',
-          admin: {
-            readOnly: true,
-          },
         },
       ],
     },
