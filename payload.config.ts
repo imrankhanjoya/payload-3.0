@@ -108,29 +108,28 @@ export default buildConfig({
         },
       ],
       hooks: {
-        afterChange: [
-          async ({ data, req }) => {
+        afterChange:  [
+          async ({ doc, req }) => {
             try {
-              const filePath = path.join('media', data.filename)
+              const filePath = path.join('media', doc.filename);
               const result = await imagekit.upload({
                 file: filePath,
-                fileName: data.filename,
+                fileName: doc.filename,
                 folder: 'payload_media',
-              })
-
-              // Update the document with the ImageKit URL
+              });
+    
               await req.payload.update({
                 collection: 'media',
-                id: data.id,
+                id: doc.id,
                 data: {
                   url: result.url,
                 },
-              })
-
-              return result
+              });
+    
+              return result;
             } catch (err) {
-              console.error('ImageKit Upload Error:', err)
-              throw new Error('Image upload to ImageKit failed.')
+              console.error('ImageKit Upload Error:', err);
+              throw new Error('Image upload to ImageKit failed.');
             }
           },
         ],
