@@ -30,9 +30,9 @@ const dirname = path.dirname(filename)
 
 // Initialize ImageKit
 const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
+  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
+  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
+  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
 })
 
 export default buildConfig({
@@ -70,28 +70,37 @@ export default buildConfig({
     {
       slug: 'media',
       upload: {
-        handler: async ({ data }) => {
-          const { file } = data
-          try {
-            // Upload the file to ImageKit
-            const result = await imagekit.upload({
-              file: file.path, // Path to the file
-              fileName: file.filename, // Optional custom file name
-              folder: 'payload_media', // Optional folder in ImageKit
-            })
+        staticDir: path.join(dirname, 'media'),
+        adminThumbnail: ({ doc }) => (doc?.url ? doc.url : ""), // Return the URL or null
+        mimeTypes: ['image/*'],
+        hooks: {
+          afterChange: [
+            async ({ data:any, req:any }) => {
+              try {
+                const filePath = path.join('media', data.filename)
+                const result = await imagekit.upload({
+                  file: filePath,
+                  fileName: data.filename,
+                  folder: 'payload_media',
+                })
 
-            // Return metadata for the uploaded file
-            return {
-              url: result.url,
-              fileName: result.name,
-              mimeType: file.mimetype,
-            }
-          } catch (err) {
-            console.error('ImageKit Upload Error:', err)
-            throw new Error('File upload to ImageKit failed.')
-          }
+                // Update the document with the ImageKit URL
+                await req.payload.update({
+                  collection: 'media',
+                  id: data.id,
+                  data: {
+                    url: result.url,
+                  },
+                })
+
+                return result
+              } catch (err) {
+                console.error('ImageKit Upload Error:', err)
+                throw new Error('Image upload to ImageKit failed.')
+              }
+            },
+          ],
         },
-        mimeTypes: ['image/*'], // Restrict to image uploads
       },
       fields: [
         {
