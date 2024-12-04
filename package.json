@@ -21,12 +21,12 @@
     "node": "^18.20.2 || >=20.9.0"
   },
   "dependencies": {
-    "@img/sharp-darwin-arm64": "^0.33.5",
-    "@img/sharp-libvips-darwin-arm64": "^1.0.6",
-    "@img/sharp-libvips-linux-x64": "^1.0.6",
-    "@img/sharp-libvips-linuxmusl-x64": "^1.0.6",
-    "@img/sharp-linux-x64": "^0.33.5",
-    "@img/sharp-linuxmusl-x64": "^0.33.5",
+    // "@img/sharp-darwin-arm64": "^0.33.5",
+    // "@img/sharp-libvips-darwin-arm64": "^1.0.6",
+    // "@img/sharp-libvips-linux-x64": "^1.0.6",
+    // "@img/sharp-libvips-linuxmusl-x64": "^1.0.6",
+    // "@img/sharp-linux-x64": "^0.33.5",
+    // "@img/sharp-linuxmusl-x64": "^0.33.5",
     "@payloadcms/db-mongodb": "3.0.0-canary.0374de4",
     "@payloadcms/db-postgres": "3.0.0-canary.0374de4",
     "@payloadcms/next": "3.0.0-canary.0374de4",
@@ -34,7 +34,7 @@
     "@payloadcms/richtext-slate": "3.0.0-canary.0374de4",
     "@payloadcms/ui": "3.0.0-canary.0374de4",
     "babel-plugin-react-compiler": "0.0.0-experimental-48eb8f4-20240822",
-    "cloudinary": "^2.5.1",
+    // "cloudinary": "^2.5.1",
     "cross-env": "^7.0.3",
     "graphql": "^16.8.2",
     "next": "15.0.0-canary.104",
@@ -42,7 +42,7 @@
     "payload": "3.0.0-canary.0374de4",
     "react": "19.0.0-rc-06d0b89e-20240801",
     "react-dom": "19.0.0-rc-06d0b89e-20240801",
-    "sharp": "^0.32.6"
+    // "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@payloadcms/graphql": "3.0.0-canary.0374de4",

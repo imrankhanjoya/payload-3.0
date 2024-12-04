@@ -24,7 +24,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { Post } from "@/app/collections/post"
-const cloudinary = require('./cloudinary')
+// const cloudinary = require('./cloudinary')
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -69,21 +69,22 @@ export default buildConfig({
       upload: {
         handler: async ({ data }) => {
           const { file } = data
-          try {
-            const result = await cloudinary.uploader.upload(file.path, {
-              folder: 'payload_media', // Specify folder name in Cloudinary
-            })
+          // try {
+          //   const result = await cloudinary.uploader.upload(file.path, {
+          //     folder: 'payload_media', // Specify folder name in Cloudinary
+          //   })
 
             // Return metadata for the uploaded file
-            return {
-              url: result.secure_url,
-              fileName: result.public_id,
-              mimeType: result.resource_type,
-            }
-          } catch (err) {
-            console.error('Cloudinary Upload Error:', err)
-            throw new Error('File upload to Cloudinary failed.')
-          }
+            // return {
+            //   url: result.secure_url,
+            //   fileName: result.public_id,
+            //   mimeType: result.resource_type,
+            // }
+          // } catch (err) {
+          //   console.error('Cloudinary Upload Error:', err)
+          //   throw new Error('File upload to Cloudinary failed.')
+          // }
+          throw new Error('File upload to Cloudinary failed.')
         },
         mimeTypes: ['image/*'], // Restrict to image uploads
       },
