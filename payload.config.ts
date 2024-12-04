@@ -23,17 +23,9 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { Post } from "@/app/collections/post"
-import ImageKit from 'imagekit'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-
-// Initialize ImageKit
-const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT,
-})
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -70,37 +62,29 @@ export default buildConfig({
     {
       slug: 'media',
       upload: {
-        staticDir: path.join(dirname, 'media'),
-        adminThumbnail: ({ doc }) => (doc?.url ? doc.url : ""), // Return the URL or null
-        mimeTypes: ['image/*'],
-        hooks: {
-          afterChange: [
-            async ({ data:any, req:any }) => {
-              try {
-                const filePath = path.join('media', data.filename)
-                const result = await imagekit.upload({
-                  file: filePath,
-                  fileName: data.filename,
-                  folder: 'payload_media',
-                })
-
-                // Update the document with the ImageKit URL
-                await req.payload.update({
-                  collection: 'media',
-                  id: data.id,
-                  data: {
-                    url: result.url,
-                  },
-                })
-
-                return result
-              } catch (err) {
-                console.error('ImageKit Upload Error:', err)
-                throw new Error('Image upload to ImageKit failed.')
-              }
-            },
-          ],
-        },
+        staticDir: path.join(dirname, 'media'), // Local directory for media files
+        adminThumbnail: 'thumbnail', // Use predefined thumbnail size
+        mimeTypes: ['image/*'], // Restrict uploads to images
+        imageSizes: [
+          {
+            name: 'thumbnail',
+            width: 400,
+            height: 300,
+            position: 'centre',
+          },
+          {
+            name: 'card',
+            width: 768,
+            height: 1024,
+            position: 'centre',
+          },
+          {
+            name: 'tablet',
+            width: 1024,
+            height: undefined, // Retain aspect ratio
+            position: 'centre',
+          },
+        ],
       },
       fields: [
         {
