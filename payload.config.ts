@@ -1,24 +1,23 @@
 import path from 'path'
 import { en } from 'payload/i18n/en'
-import {
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-import { Post } from "@/app/collections/post"
-import ImageKit from 'imagekit'
+import { Post } from '@/app/collections/post'
+// import ImageKit from 'imagekit'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 // Initialize ImageKit
-const imagekit = new ImageKit({
-  publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
-  privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
-  urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
-})
+// const imagekit = new ImageKit({
+//   publicKey: process.env.IMAGEKIT_PUBLIC_KEY!,
+//   privateKey: process.env.IMAGEKIT_PRIVATE_KEY!,
+//   urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT!,
+// })
 
 export default buildConfig({
   editor: lexicalEditor(),
@@ -30,10 +29,12 @@ export default buildConfig({
         delete: () => false,
         update: () => false,
       },
-      fields: [{
-        name: 'phone',
-        type: 'text',
-      }],
+      fields: [
+        {
+          name: 'phone',
+          type: 'text',
+        },
+      ],
     },
     Post,
     {
@@ -107,34 +108,49 @@ export default buildConfig({
           },
         },
       ],
-      hooks: {
-        afterChange:  [
-          async ({ doc, req }) => {
-            try {
-              const filePath = path.join('media', doc.filename);
-              const result = await imagekit.upload({
-                file: filePath,
-                fileName: doc.filename,
-                folder: 'payload_media',
-              });
-    
-              await req.payload.update({
-                collection: 'media',
-                id: doc.id,
-                data: {
-                  url: result.url,
-                },
-              });
-    
-              return result;
-            } catch (err) {
-              console.error('ImageKit Upload Error:', err);
-              throw new Error('Image upload to ImageKit failed.');
-            }
-          },
-        ],
-      },
+      // hooks: {
+      //   afterChange: [
+      //     async ({ doc, req }) => {
+      //       try {
+      //         const filePath = path.join('media', doc.filename)
+      //         const result = await imagekit.upload({
+      //           file: filePath,
+      //           fileName: doc.filename,
+      //           folder: 'payload_media',
+      //         })
+
+      //         await req.payload.update({
+      //           collection: 'media',
+      //           id: doc.id,
+      //           data: {
+      //             url: result.url,
+      //           },
+      //         })
+
+      //         return result
+      //       } catch (err) {
+      //         console.error('ImageKit Upload Error:', err)
+      //         throw new Error('Image upload to ImageKit failed.')
+      //       }
+      //     },
+      //   ],
+      // },
     },
+  ],
+
+  plugins: [
+    vercelBlobStorage({
+      enabled: true, // Optional, defaults to true
+      // Specify which collections should use Vercel Blob
+      collections: {
+        media: true,
+        'media-with-prefix': {
+          prefix: 'my-prefix',
+        },
+      },
+      // Token provided by Vercel once Blob storage is added to your Vercel project
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
