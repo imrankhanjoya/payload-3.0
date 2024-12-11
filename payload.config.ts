@@ -5,7 +5,9 @@ import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-import { Post } from '@/app/collections/post'
+import { Post } from '@/app/collections/Post'
+import { Campaign } from '@/app/collections/Campaign'
+
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
@@ -22,6 +24,8 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   editor: lexicalEditor(),
   collections: [
+    Post,
+    Campaign,
     {
       slug: 'users',
       auth: true,
@@ -36,7 +40,7 @@ export default buildConfig({
         },
       ],
     },
-    Post,
+
     {
       slug: 'pages',
       admin: {
