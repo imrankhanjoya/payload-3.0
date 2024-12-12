@@ -2,11 +2,14 @@ import path from 'path'
 import { en } from 'payload/i18n/en'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { buildConfig } from 'payload'
+import { buildConfig, GlobalConfig } from 'payload'
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 import { Post } from '@/app/collections/Post'
 import { Campaign } from '@/app/collections/Campaign'
+import { Pages } from '@/app/collections/Pages'
+import { User } from '@/app/collections/User'
+import { Media } from '@/app/collections/Media'
 
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -23,125 +26,7 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   editor: lexicalEditor(),
-  collections: [
-    Post,
-    Campaign,
-    {
-      slug: 'users',
-      auth: true,
-      access: {
-        delete: () => false,
-        update: () => false,
-      },
-      fields: [
-        {
-          name: 'phone',
-          type: 'text',
-        },
-      ],
-    },
-
-    {
-      slug: 'pages',
-      admin: {
-        useAsTitle: 'title',
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-        },
-        {
-          name: 'content',
-          type: 'richText',
-        },
-      ],
-    },
-    {
-      slug: 'media',
-      upload: {
-        staticDir: path.join(dirname, 'media'),
-        adminThumbnail: ({ doc }) => (doc?.url ? doc.url.toString() : null),
-        mimeTypes: ['image/*'],
-        imageSizes: [
-          {
-            name: 'thumbnail',
-            width: 400,
-            height: 300,
-            position: 'centre',
-          },
-          {
-            name: 'card',
-            width: 768,
-            height: 1024,
-            position: 'centre',
-          },
-          {
-            name: 'tablet',
-            width: 1024,
-            height: undefined, // Retain aspect ratio
-            position: 'centre',
-          },
-        ],
-      },
-      fields: [
-        {
-          name: 'title',
-          type: 'text',
-          required: true,
-        },
-        {
-          name: 'description',
-          type: 'textarea',
-        },
-        {
-          name: 'tags',
-          type: 'array',
-          fields: [
-            {
-              name: 'tag',
-              type: 'text',
-            },
-          ],
-        },
-        {
-          name: 'url',
-          type: 'text',
-          admin: {
-            readOnly: true,
-          },
-        },
-      ],
-      // hooks: {
-      //   afterChange: [
-      //     async ({ doc, req }) => {
-      //       try {
-      //         const filePath = path.join('media', doc.filename)
-      //         const result = await imagekit.upload({
-      //           file: filePath,
-      //           fileName: doc.filename,
-      //           folder: 'payload_media',
-      //         })
-
-      //         await req.payload.update({
-      //           collection: 'media',
-      //           id: doc.id,
-      //           data: {
-      //             url: result.url,
-      //           },
-      //         })
-
-      //         return result
-      //       } catch (err) {
-      //         console.error('ImageKit Upload Error:', err)
-      //         throw new Error('Image upload to ImageKit failed.')
-      //       }
-      //     },
-      //   ],
-      // },
-    },
-  ],
-
+  collections: [Post, Campaign, User, Pages, Media],
   plugins: [
     vercelBlobStorage({
       enabled: true, // Optional, defaults to true
@@ -156,6 +41,7 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN!,
     }),
   ],
+
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
@@ -169,7 +55,7 @@ export default buildConfig({
   admin: {
     autoLogin: {
       email: 'dev@payloadcms.com',
-      password: 'test1',
+      password: 'test',
       prefillOnly: true,
     },
   },

@@ -1,7 +1,13 @@
 import type { CollectionConfig } from 'payload'
+import checkRoleAccess from '@/app/middleware/roleMiddleware'
 
 export const Campaign: CollectionConfig = {
   slug: 'campaign',
+  access: {
+    read: () => true, // Allow everyone to read
+    update: () => true, // Allow everyone to update
+    delete: checkRoleAccess(['admin']),
+  },
   fields: [
     {
       name: 'title',
