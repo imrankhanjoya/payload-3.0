@@ -59,32 +59,58 @@ export const Media: CollectionConfig = {
         readOnly: true,
       },
     },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'users',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: (data) => !!data?.createdBy,
+      },
+    },
   ],
-  // hooks: {
-  //   afterChange: [
-  //     async ({ doc, req }) => {
-  //       try {
-  //         const filePath = path.join('media', doc.filename)
-  //         const result = await imagekit.upload({
-  //           file: filePath,
-  //           fileName: doc.filename,
-  //           folder: 'payload_media',
-  //         })
+  hooks: {
+    beforeChange: [
+      ({ req, operation, data }) => {
+        if (req.user) {
+          // if (operation === 'create') {
+          //   data.updatedBy = req.user.id
+          //   data.createdBy = req.user.id
+          // } else if (operation === 'update') {
+          data.createdBy = req.user.id
+          //}
+          return data
+        }
+      },
+    ],
+    //   afterChange: [
+    //     async ({ doc, req }) => {
+    //       try {
+    //         const filePath = path.join('media', doc.filename)
+    //         const result = await imagekit.upload({
+    //           file: filePath,
+    //           fileName: doc.filename,
+    //           folder: 'payload_media',
+    //         })
 
-  //         await req.payload.update({
-  //           collection: 'media',
-  //           id: doc.id,
-  //           data: {
-  //             url: result.url,
-  //           },
-  //         })
+    //         await req.payload.update({
+    //           collection: 'media',
+    //           id: doc.id,
+    //           data: {
+    //             url: result.url,
+    //           },
+    //         })
 
-  //         return result
-  //       } catch (err) {
-  //         console.error('ImageKit Upload Error:', err)
-  //         throw new Error('Image upload to ImageKit failed.')
-  //       }
-  //     },
-  //   ],
-  // },
+    //         return result
+    //       } catch (err) {
+    //         console.error('ImageKit Upload Error:', err)
+    //         throw new Error('Image upload to ImageKit failed.')
+    //       }
+    //     },
+    //   ],
+  },
 }

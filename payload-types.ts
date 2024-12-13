@@ -12,7 +12,7 @@ export interface Config {
   };
   collections: {
     posts: Post;
-    campaign: Campaign;
+    campaigns: Campaign;
     users: User;
     pages: Page;
     media: Media;
@@ -75,7 +75,7 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "campaign".
+ * via the `definition` "campaigns".
  */
 export interface Campaign {
   id: string;
@@ -102,6 +102,7 @@ export interface Campaign {
   campaignImage1?: (string | null) | Media;
   campaignImage2?: (string | null) | Media;
   campaignImage3?: (string | null) | Media;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -119,6 +120,7 @@ export interface Media {
         id?: string | null;
       }[]
     | null;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -213,7 +215,7 @@ export interface PayloadLockedDocument {
         value: string | Post;
       } | null)
     | ({
-        relationTo: 'campaign';
+        relationTo: 'campaigns';
         value: string | Campaign;
       } | null)
     | ({

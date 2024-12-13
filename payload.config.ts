@@ -58,6 +58,14 @@ export default buildConfig({
       password: 'test',
       prefillOnly: true,
     },
+    components: {
+      // views: {
+      //   customView: {
+      //     Component: '/path/to/MyCustomView#MyCustomView',
+      //     path: '/my-custom-view',
+      //   }
+      // },
+    },
   },
   async onInit(payload) {
     const existingUsers = await payload.find({
