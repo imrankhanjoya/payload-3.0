@@ -79,6 +79,7 @@ export default buildConfig({
         data: {
           email: 'dev@payloadcms.com',
           password: 'test',
+          role: 'admin', // Ensure the role is provided
         },
       })
     }
