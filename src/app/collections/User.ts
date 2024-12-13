@@ -8,9 +8,9 @@ export const User: CollectionConfig = {
     read: checkRoleAccess(['admin']),
     update: checkRoleAccess(['admin']),
   },
-  // admin: {
-  //   useAsTitle: 'email',
-  // },
+  admin: {
+    useAsTitle: 'email',
+  },
   fields: [
     {
       name: 'role',
