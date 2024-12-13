@@ -1,13 +1,14 @@
+import { PayloadRequest } from 'payload/types';
+
 const checkRoleAccess =
   (requiredRoles: string[]) =>
-  ({ req }) => {
-    const user = req.user
+  ({ req }: { req: PayloadRequest }) => {
+    const user = req.user;
 
-    if (!user) return false
+    if (!user) return false;
 
-    const { role } = user // Use 'role' instead of 'roles'
+    const { role } = user; // Assuming 'role' is a single string
+    return requiredRoles.includes(role); // Check if user's role matches
+  };
 
-    return requiredRoles.includes(role) // Adjust for a single role
-  }
-
-export default checkRoleAccess
+export default checkRoleAccess;
