@@ -1,8 +1,7 @@
-import { PayloadRequest } from 'payload/types';
 
 const checkRoleAccess =
   (requiredRoles: string[]) =>
-  ({ req }: { req: PayloadRequest }) => {
+  ({ req }: { req: any }) => {
     const user = req.user;
 
     if (!user) return false;
