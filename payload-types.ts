@@ -160,7 +160,8 @@ export interface Media {
  */
 export interface User {
   id: string;
-  role: 'admin' | 'editor' | 'influencer' | 'user';
+  name?: string | null;
+  role: 'admin' | 'editor';
   phone?: string | null;
   updatedAt: string;
   createdAt: string;
