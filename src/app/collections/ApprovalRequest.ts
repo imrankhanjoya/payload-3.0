@@ -9,9 +9,9 @@ export const ApprovalRequest: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
-  admin: {
-    hidden: isAdmin ? false : true,
-  },
+  // admin: {
+  //   hidden: isAdmin ? false : true,
+  // },
   fields: [
     {
       name: 'title',
