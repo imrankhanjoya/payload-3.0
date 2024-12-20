@@ -53,7 +53,7 @@ export const Campaign: CollectionConfig = {
       label: 'Age Range',
       type: 'select',
       options: [
-        { label: '10-20 years', value: '10-20' },
+        { label: '18-20 years', value: '18-20' },
         { label: '21-30 years', value: '21-30' },
         { label: '31-40 years', value: '31-40' },
         { label: '41-50 years', value: '41-50' },
