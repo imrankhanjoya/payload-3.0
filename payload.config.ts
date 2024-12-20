@@ -15,6 +15,7 @@ import { Socialmedia } from '@/app/collections/Socialmedia'
 
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { ApprovalRequest } from '@/app/collections/ApprovalRequest'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,7 +30,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   editor: lexicalEditor(),
   // collections: [Post, Campaign, User, Pages, Media],
-  collections: [Post, Brands, Socialmedia, Campaign, User, Pages, Media],
+  collections: [Post, Brands, Socialmedia, Campaign, User, Pages, Media, ApprovalRequest],
   plugins: [
     vercelBlobStorage({
       enabled: true, // Optional, defaults to true

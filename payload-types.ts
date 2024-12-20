@@ -18,6 +18,7 @@ export interface Config {
     users: User;
     pages: Page;
     media: Media;
+    'approval-request': ApprovalRequest;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -249,6 +250,16 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "approval-request".
+ */
+export interface ApprovalRequest {
+  id: string;
+  title?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -281,6 +292,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'approval-request';
+        value: string | ApprovalRequest;
       } | null);
   globalSlug?: string | null;
   _lastEdited: {
