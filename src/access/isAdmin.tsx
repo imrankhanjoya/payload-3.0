@@ -6,8 +6,4 @@ export const isAdmin: Access = ({ req: { users } }) => {
   // }
   const role = users?.role ?? []
   return role.includes('admin')
-
-  return false // Explicit false for all other cases
 }
-const role = users?.role ?? []
-return role.includes('admin')
