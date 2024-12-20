@@ -67,7 +67,7 @@ export const Campaign: CollectionConfig = {
       options: [
         { label: 'Male', value: 'Male' },
         { label: 'Female', value: 'Female' },
-        { label: 'Other', value: 'Other' },
+        { label: 'Both', value: 'Both' },
       ],
       admin: {
         position: 'sidebar',
