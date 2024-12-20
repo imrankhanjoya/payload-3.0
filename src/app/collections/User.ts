@@ -1,28 +1,41 @@
 import type { CollectionConfig } from 'payload'
-import checkRoleAccess from '@/app/middleware/roleMiddleware'
+import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdmin } from '@/access/isAdmin'
 
 export const User: CollectionConfig = {
   slug: 'users',
   auth: true,
   access: {
-    read: checkRoleAccess(['admin']),
-    update: checkRoleAccess(['admin']),
+    create: isAdmin,
+    update: isAdminOrSelf,
+    read: isAdminOrSelf,
+    delete: isAdmin,
   },
   admin: {
-    useAsTitle: 'email',
+    useAsTitle: 'name',
   },
   fields: [
     {
+      name: 'name',
+      type: 'text',
+    },
+    {
       name: 'role',
       type: 'select',
+      saveToJWT: true,
+      hasMany: false,
+      access: {
+        // create: isAdmin,
+        // update: isAdminOrSelf,
+      },
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
-        { label: 'Influencer', value: 'influencer' },
-        { label: 'User', value: 'user' },
+        // { label: 'Influencer', value: 'influencer' },
+        // { label: 'User', value: 'user' },
       ],
       required: true,
-      defaultValue: 'user',
+      defaultValue: 'Admin',
     },
     {
       name: 'phone',
