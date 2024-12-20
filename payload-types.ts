@@ -207,6 +207,10 @@ export interface Campaign {
     };
     [k: string]: unknown;
   };
+  agerange: '10-20' | '21-30' | '31-40' | '41-50' | '51-60' | '60+';
+  gender: 'Male' | 'Female' | 'Other';
+  startdate?: string | null;
+  enddate?: string | null;
   campaignImage1?: (string | null) | Media;
   campaignImage2?: (string | null) | Media;
   campaignImage3?: (string | null) | Media;
