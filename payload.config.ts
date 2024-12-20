@@ -10,6 +10,8 @@ import { Campaign } from '@/app/collections/Campaigns'
 import { Pages } from '@/app/collections/Pages'
 import { User } from '@/app/collections/User'
 import { Media } from '@/app/collections/Media'
+import { Brands } from '@/app/collections/Brands'
+import { Socialmedia } from '@/app/collections/Socialmedia'
 
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -26,7 +28,8 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   editor: lexicalEditor(),
-  collections: [Post, Campaign, User, Pages, Media],
+  // collections: [Post, Campaign, User, Pages, Media],
+  collections: [Post, Brands, Socialmedia, Campaign, User, Pages, Media],
   plugins: [
     vercelBlobStorage({
       enabled: true, // Optional, defaults to true

@@ -9,6 +9,9 @@ export const Campaign: CollectionConfig = {
     delete: checkRoleAccess(['admin']),
     create: checkRoleAccess(['admin', 'editor']),
   },
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
       name: 'title',
@@ -20,30 +23,30 @@ export const Campaign: CollectionConfig = {
       type: 'richText',
       required: true,
     },
-    {
-      name: 'Twitter',
-      type: 'checkbox',
-      label: 'Twitter',
-      defaultValue: false,
-    },
-    {
-      name: 'Facebook',
-      type: 'checkbox',
-      label: 'Facebook',
-      defaultValue: false,
-    },
-    {
-      name: 'Instagram',
-      type: 'checkbox',
-      label: 'Instagram',
-      defaultValue: false,
-    },
-    {
-      name: 'TikTok',
-      type: 'checkbox',
-      label: 'TikTok',
-      defaultValue: false,
-    },
+    // {
+    //   name: 'Twitter',
+    //   type: 'checkbox',
+    //   label: 'Twitter',
+    //   defaultValue: false,
+    // },
+    // {
+    //   name: 'Facebook',
+    //   type: 'checkbox',
+    //   label: 'Facebook',
+    //   defaultValue: false,
+    // },
+    // {
+    //   name: 'Instagram',
+    //   type: 'checkbox',
+    //   label: 'Instagram',
+    //   defaultValue: false,
+    // },
+    // {
+    //   name: 'TikTok',
+    //   type: 'checkbox',
+    //   label: 'TikTok',
+    //   defaultValue: false,
+    // },
 
     {
       name: 'campaignImage1',
@@ -75,6 +78,28 @@ export const Campaign: CollectionConfig = {
         readOnly: true,
         position: 'sidebar',
         condition: (data) => !!data?.createdBy,
+      },
+    },
+
+    {
+      name: 'brand',
+      type: 'relationship',
+      relationTo: 'brands',
+      admin: {
+        // readOnly: true,
+        position: 'sidebar',
+        //   condition: (data) => !!data?.createdBy,
+      },
+    },
+
+    {
+      name: 'socialmedia',
+      type: 'relationship',
+      relationTo: 'socialmedia',
+      admin: {
+        // readOnly: true,
+        position: 'sidebar',
+        //   condition: (data) => !!data?.createdBy,
       },
     },
   ],

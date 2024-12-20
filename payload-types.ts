@@ -12,6 +12,8 @@ export interface Config {
   };
   collections: {
     posts: Post;
+    brands: Brand;
+    socialmedia: Socialmedia;
     campaigns: Campaign;
     users: User;
     pages: Page;
@@ -75,12 +77,12 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "campaigns".
+ * via the `definition` "brands".
  */
-export interface Campaign {
+export interface Brand {
   id: string;
-  title: string;
-  description: {
+  title?: string | null;
+  content?: {
     root: {
       type: string;
       children: {
@@ -94,15 +96,8 @@ export interface Campaign {
       version: number;
     };
     [k: string]: unknown;
-  };
-  Twitter?: boolean | null;
-  Facebook?: boolean | null;
-  Instagram?: boolean | null;
-  TikTok?: boolean | null;
-  campaignImage1?: (string | null) | Media;
-  campaignImage2?: (string | null) | Media;
-  campaignImage3?: (string | null) | Media;
-  createdBy?: (string | null) | User;
+  } | null;
+  brandlogo?: (string | null) | Media;
   updatedAt: string;
   createdAt: string;
 }
@@ -180,6 +175,48 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialmedia".
+ */
+export interface Socialmedia {
+  id: string;
+  title?: string | null;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "campaigns".
+ */
+export interface Campaign {
+  id: string;
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  campaignImage1?: (string | null) | Media;
+  campaignImage2?: (string | null) | Media;
+  campaignImage3?: (string | null) | Media;
+  createdBy?: (string | null) | User;
+  brand?: (string | null) | Brand;
+  socialmedia?: (string | null) | Socialmedia;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -213,6 +250,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'brands';
+        value: string | Brand;
+      } | null)
+    | ({
+        relationTo: 'socialmedia';
+        value: string | Socialmedia;
       } | null)
     | ({
         relationTo: 'campaigns';
