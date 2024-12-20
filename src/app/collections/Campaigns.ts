@@ -26,6 +26,23 @@ export const Campaign: CollectionConfig = {
       required: true,
     },
     {
+      name: 'country',
+      label: 'Country',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+
+    {
+      name: 'state',
+      label: 'State',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'agerange',
       label: 'Age Range',
       type: 'select',

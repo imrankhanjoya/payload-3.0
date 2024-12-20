@@ -207,6 +207,8 @@ export interface Campaign {
     };
     [k: string]: unknown;
   };
+  country?: string | null;
+  state?: string | null;
   agerange: '10-20' | '21-30' | '31-40' | '41-50' | '51-60' | '60+';
   gender: 'Male' | 'Female' | 'Other';
   startdate?: string | null;
