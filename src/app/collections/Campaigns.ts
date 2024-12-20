@@ -28,7 +28,13 @@ export const Campaign: CollectionConfig = {
     {
       name: 'country',
       label: 'Country',
-      type: 'text',
+      type: 'select',
+      options: [
+        { label: 'India', value: 'IN' },
+        { label: 'Indonesia', value: 'ID' },
+        { label: 'Thailand', value: 'TH' },
+        { label: 'Singapore', value: 'SG' }
+      ],
       admin: {
         position: 'sidebar',
       },
