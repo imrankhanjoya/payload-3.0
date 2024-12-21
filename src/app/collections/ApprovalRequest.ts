@@ -20,7 +20,7 @@ export const ApprovalRequest: CollectionConfig = {
     },
     {
       name: 'userbio',
-      type: 'richText',
+      type: 'text',
     },
     {
       name: 'campaignId',

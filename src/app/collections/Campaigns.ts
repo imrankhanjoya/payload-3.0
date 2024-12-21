@@ -176,6 +176,15 @@ export const Campaign: CollectionConfig = {
       required: true,
       defaultValue: 'commission',
     },
+
+    {
+      name: 'ratevalue',
+      label: 'Rate value',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
 
   hooks: {

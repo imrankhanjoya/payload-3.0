@@ -223,6 +223,7 @@ export interface Campaign {
   socialmedia?: (string | null) | Socialmedia;
   budget?: number | null;
   rate: 'commission' | 'perpost' | 'discount';
+  ratevalue?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -258,21 +259,7 @@ export interface Page {
 export interface ApprovalRequest {
   id: string;
   username?: string | null;
-  userbio?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  userbio?: string | null;
   campaignId?: string | null;
   userId?: string | null;
   status?: string | null;
