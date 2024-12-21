@@ -5,11 +5,11 @@ import { addDataAndFileToRequest } from '@payloadcms/next/utilities'
 
 export const ApprovalRequest: CollectionConfig = {
   slug: 'approval-request',
-  access: {
-    read: isAdmin,
-    update: isAdmin,
-    delete: isAdmin,
-  },
+  // access: {
+  //   read: isAdmin,
+  //   update: isAdmin,
+  //   delete: isAdmin,
+  // },
   // admin: {
   //   hidden: isAdmin ? false : true,
   // },
