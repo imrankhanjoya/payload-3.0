@@ -257,7 +257,25 @@ export interface Page {
  */
 export interface ApprovalRequest {
   id: string;
-  title?: string | null;
+  username?: string | null;
+  userbio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  campaignId?: string | null;
+  userId?: string | null;
+  status?: string | null;
   updatedAt: string;
   createdAt: string;
 }
