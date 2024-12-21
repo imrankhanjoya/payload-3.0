@@ -5,9 +5,9 @@ import { isAdminOrSelf } from '@/access/isAdminOrSelf'
 export const Brands: CollectionConfig = {
   slug: 'brands',
   access: {
-    create: isAdmin,
-
-    update: isAdmin,
+    read: isAdminOrSelf,
+    create: isAdminOrSelf,
+    update: isAdminOrSelf,
     delete: isAdmin,
   },
   admin: {
@@ -28,5 +28,33 @@ export const Brands: CollectionConfig = {
       relationTo: 'media',
       required: false,
     },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'users',
+      access: {
+        update: () => false,
+      },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: (data) => !!data?.createdBy,
+      },
+    },
   ],
+  hooks: {
+    beforeChange: [
+      ({ req, operation, data }) => {
+        if (req.user) {
+          // if (operation === 'create') {
+          //   data.updatedBy = req.user.id
+          //   data.createdBy = req.user.id
+          // } else if (operation === 'update') {
+          data.createdBy = req.user.id
+          //}
+          return data
+        }
+      },
+    ],
+  },
 }

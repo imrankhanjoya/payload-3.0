@@ -99,6 +99,7 @@ export interface Brand {
     [k: string]: unknown;
   } | null;
   brandlogo?: (string | null) | Media;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -208,10 +209,10 @@ export interface Campaign {
     };
     [k: string]: unknown;
   };
-  country?: string | null;
+  country: 'IN' | 'ID' | 'TH' | 'SG';
   state?: string | null;
-  agerange: '10-20' | '21-30' | '31-40' | '41-50' | '51-60' | '60+';
-  gender: 'Male' | 'Female' | 'Other';
+  agerange: '18-20' | '21-30' | '31-40' | '41-50' | '51-60' | '60+';
+  gender: 'Male' | 'Female' | 'Both';
   startdate?: string | null;
   enddate?: string | null;
   campaignImage1?: (string | null) | Media;
@@ -220,6 +221,8 @@ export interface Campaign {
   createdBy?: (string | null) | User;
   brand?: (string | null) | Brand;
   socialmedia?: (string | null) | Socialmedia;
+  budget?: number | null;
+  rate: 'commission' | 'perpost' | 'discount';
   updatedAt: string;
   createdAt: string;
 }
