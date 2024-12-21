@@ -50,10 +50,19 @@ export const ApprovalRequest: CollectionConfig = {
           data,
         })
 
-        return Response.json({
-          message: `Data successfully added!`,
-          result: result,
-        })
+        return Response.json(
+          {
+            message: `Data successfully added!`,
+            result: result,
+          },
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*', // Adjust the origin as needed
+              'Access-Control-Allow-Methods': 'POST, OPTIONS',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            },
+          },
+        )
       },
     },
   ],
