@@ -40,7 +40,7 @@ export const ApprovalRequest: CollectionConfig = {
     {
       path: '/:add-request',
       method: 'post',
-      handler: async (req) => {
+      handler: async (req: any) => {
         const data = await req?.json()
         await addDataAndFileToRequest(req)
         console.log('🚀 Brij  ~  file: ApprovalRequest.ts:30 ~  handler: ~  data:', data)
