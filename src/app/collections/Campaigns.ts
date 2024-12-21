@@ -6,7 +6,6 @@ export const Campaign: CollectionConfig = {
   access: {
     create: isAdminOrSelf,
     update: isAdminOrSelf,
-    read: isAdminOrSelf,
     delete: isAdmin,
   },
   admin: {
