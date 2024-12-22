@@ -30,7 +30,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   editor: lexicalEditor(),
   // collections: [Post, Campaign, User, Pages, Media],
-  csrf:["http://localhost:3000/","https://onionpose.com/"],
+  csrf:["http://localhost:3000","https://onionpose.com","https://payload-3-0-pi.vercel.app"],
   collections: [Post, Brands, Socialmedia, Campaign, User, Pages, Media, ApprovalRequest],
   plugins: [
     vercelBlobStorage({
