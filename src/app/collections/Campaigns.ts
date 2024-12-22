@@ -1,14 +1,14 @@
 import type { CollectionConfig } from 'payload'
-import checkRoleAccess from '@/app/middleware/roleMiddleware'
-
+import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdmin } from '@/access/isAdmin'
 export const Campaign: CollectionConfig = {
   slug: 'campaigns',
-  access: {
-    read: () => true, // Allow everyone to read
-    update: () => true, // Allow everyone to update
-    delete: checkRoleAccess(['admin']),
-    create: checkRoleAccess(['admin', 'editor']),
-  },
+  // access: {
+  //   create: isAdminOrSelf,
+  //   update: isAdminOrSelf,
+  //   read: isAdminOrSelf,
+  //   delete: isAdmin,
+  // },
   admin: {
     useAsTitle: 'title',
   },
@@ -34,7 +34,7 @@ export const Campaign: CollectionConfig = {
         { label: 'India', value: 'IN' },
         { label: 'Indonesia', value: 'ID' },
         { label: 'Thailand', value: 'TH' },
-        { label: 'Singapore', value: 'SG' }
+        { label: 'Singapore', value: 'SG' },
       ],
       admin: {
         position: 'sidebar',
@@ -149,6 +149,40 @@ export const Campaign: CollectionConfig = {
         // readOnly: true,
         position: 'sidebar',
         //   condition: (data) => !!data?.createdBy,
+      },
+    },
+
+    {
+      name: 'budget',
+      label: 'Budget for campaign',
+      type: 'number',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+
+    {
+      name: 'rate',
+      label: 'Rate',
+      type: 'select',
+      options: [
+        { label: 'Commission in %', value: 'commission' },
+        { label: 'Cost Per post', value: 'perpost' },
+        { label: 'Discount', value: 'discount' },
+      ],
+      admin: {
+        position: 'sidebar',
+      },
+      required: true,
+      defaultValue: 'commission',
+    },
+
+    {
+      name: 'ratevalue',
+      label: 'Rate value',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
       },
     },
   ],
