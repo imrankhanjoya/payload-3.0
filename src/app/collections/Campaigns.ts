@@ -3,9 +3,6 @@ import { isAdminOrSelf } from '@/access/isAdminOrSelf'
 import { isAdmin } from '@/access/isAdmin'
 export const Campaign: CollectionConfig = {
   slug: 'campaigns',
-  auth: {
-    useAPIKey: true, 
-  },
   access: {
     create: isAdminOrSelf,
     update: isAdminOrSelf,
