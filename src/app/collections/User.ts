@@ -4,7 +4,9 @@ import { isAdmin } from '@/access/isAdmin'
 
 export const User: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    useAPIKey: true,
+  },
   access: {
     create: isAdmin,
     update: isAdminOrSelf,
