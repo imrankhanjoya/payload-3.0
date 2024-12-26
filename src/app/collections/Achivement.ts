@@ -1,7 +1,7 @@
 import { isAdmin } from '@/access/isAdmin'
 import { isAdminOrSelf } from '@/access/isAdminOrSelf'
 import type { CollectionConfig } from 'payload'
-export const Achivements: CollectionConfig = {
+export const Achivement: CollectionConfig = {
   slug: 'achivements',
   // access: {
   //   create: isAdminOrSelf,

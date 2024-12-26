@@ -1,3 +1,4 @@
+// import { Achivement } from './payload-types'
 import path from 'path'
 import { en } from 'payload/i18n/en'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -17,10 +18,10 @@ import { Socialmedia } from '@/app/collections/Socialmedia'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { ApprovalRequest } from '@/app/collections/ApprovalRequest'
 import { Influencer } from '@/app/collections/Influencer'
-import { Achivements } from '@/app/collections/achivements'
-// import { Experience } from '@/app/collections/exprience'
+import { Experience } from '@/app/collections/Exprience'
 import { Infuencerbrands } from '@/app/collections/Infuencerbrand'
 import { Engagement } from '@/app/collections/Engagement'
+import { Achivement } from '@/app/collections/Achivement'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -42,8 +43,8 @@ export default buildConfig({
     Socialmedia,
     Campaign,
     Influencer,
-    Achivements,
-    // Experience,
+    Achivement,
+    Experience,
     Infuencerbrands,
     Engagement,
     User,
