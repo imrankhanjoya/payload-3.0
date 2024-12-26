@@ -19,9 +19,9 @@ export const Experience: CollectionConfig = {
     },
 
     {
-      name: 'number',
-      label: 'Numbers',
-      type: 'number',
+      name: 'startdate',
+      label: 'Start date',
+      type: 'date',
     },
 
     {
@@ -32,12 +32,12 @@ export const Experience: CollectionConfig = {
     },
 
     {
-      name: 'Infuencer',
+      name: 'infuencer',
       type: 'relationship',
       relationTo: 'users',
-      access: {
-        update: () => true,
-      },
+      // access: {
+      //   update: () => true,
+      // },
       admin: {
         // readOnly: true,
         position: 'sidebar',
@@ -50,7 +50,7 @@ export const Experience: CollectionConfig = {
     beforeChange: [
       ({ req, operation, data }) => {
         if (req.user) {
-          data.createdBy = req.user.id
+          data.infuencer = req.user.id
           return data
         }
       },
