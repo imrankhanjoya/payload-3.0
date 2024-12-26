@@ -49,8 +49,8 @@ export const Experience: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ req, operation, data }) => {
-        if (req.user) {
-          data.infuencer = req.user.id
+        if (req?.user) {
+          data.infuencer = req?.user.id
           return data
         }
       },

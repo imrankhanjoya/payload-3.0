@@ -18,7 +18,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { ApprovalRequest } from '@/app/collections/ApprovalRequest'
 import { Influencer } from '@/app/collections/Influencer'
 import { Achivements } from '@/app/collections/achivements'
-import { Experience } from '@/app/collections/exprience'
+// import { Experience } from '@/app/collections/exprience'
 import { Infuencerbrands } from '@/app/collections/Infuencerbrand'
 import { Engagement } from '@/app/collections/Engagement'
 
@@ -43,7 +43,7 @@ export default buildConfig({
     Campaign,
     Influencer,
     Achivements,
-    Experience,
+    // Experience,
     Infuencerbrands,
     Engagement,
     User,

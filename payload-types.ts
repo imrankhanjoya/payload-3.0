@@ -17,7 +17,6 @@ export interface Config {
     campaigns: Campaign;
     influencers: Influencer;
     achivements: Achivement;
-    experiences: Experience;
     infuencerbrands: Infuencerbrand;
     engagements: Engagement;
     users: User;
@@ -296,33 +295,6 @@ export interface Achivement {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "experiences".
- */
-export interface Experience {
-  id: string;
-  title: string;
-  startdate?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  Infuencer?: (string | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "infuencerbrands".
  */
 export interface Infuencerbrand {
@@ -444,10 +416,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'achivements';
         value: string | Achivement;
-      } | null)
-    | ({
-        relationTo: 'experiences';
-        value: string | Experience;
       } | null)
     | ({
         relationTo: 'infuencerbrands';
