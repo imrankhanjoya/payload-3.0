@@ -83,6 +83,7 @@ export const Influencer: CollectionConfig = {
 
     {
       name: 'infuencer',
+      label: 'Select User',
       type: 'relationship',
       relationTo: 'users',
       access: {

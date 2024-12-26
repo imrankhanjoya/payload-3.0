@@ -50,7 +50,7 @@ export const Achivement: CollectionConfig = {
     beforeChange: [
       ({ req, operation, data }) => {
         if (req.user) {
-          data.createdBy = req.user.id
+          //  data.createdBy = req.user.id
           return data
         }
       },
