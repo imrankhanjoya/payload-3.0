@@ -15,6 +15,11 @@ export interface Config {
     brands: Brand;
     socialmedia: Socialmedia;
     campaigns: Campaign;
+    influencers: Influencer;
+    achivements: Achivement;
+    experiences: Experience;
+    infuencerbrands: Infuencerbrand;
+    engagements: Engagement;
     users: User;
     pages: Page;
     media: Media;
@@ -163,10 +168,13 @@ export interface Media {
 export interface User {
   id: string;
   name?: string | null;
-  role: 'admin' | 'editor';
+  role: 'admin' | 'editor' | 'influencer';
   phone?: string | null;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -224,6 +232,146 @@ export interface Campaign {
   budget?: number | null;
   rate: 'commission' | 'perpost' | 'discount';
   ratevalue?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "influencers".
+ */
+export interface Influencer {
+  id: string;
+  name: string;
+  userid: string;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  industry?: ('fashion' | 'health' | 'travels')[] | null;
+  country: 'IN' | 'ID' | 'TH' | 'SG';
+  state?: string | null;
+  turnaroundtime?: string | null;
+  image?: (string | null) | Media;
+  infuencer?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "achivements".
+ */
+export interface Achivement {
+  id: string;
+  title: string;
+  date?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  createdBy?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "experiences".
+ */
+export interface Experience {
+  id: string;
+  title: string;
+  startdate?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  Infuencer?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "infuencerbrands".
+ */
+export interface Infuencerbrand {
+  id: string;
+  title: string;
+  url?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  Infuencer?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "engagements".
+ */
+export interface Engagement {
+  id: string;
+  title: string;
+  number?: number | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  Infuencer?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -288,6 +436,26 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'campaigns';
         value: string | Campaign;
+      } | null)
+    | ({
+        relationTo: 'influencers';
+        value: string | Influencer;
+      } | null)
+    | ({
+        relationTo: 'achivements';
+        value: string | Achivement;
+      } | null)
+    | ({
+        relationTo: 'experiences';
+        value: string | Experience;
+      } | null)
+    | ({
+        relationTo: 'infuencerbrands';
+        value: string | Infuencerbrand;
+      } | null)
+    | ({
+        relationTo: 'engagements';
+        value: string | Engagement;
       } | null)
     | ({
         relationTo: 'users';

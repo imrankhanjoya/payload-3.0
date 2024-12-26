@@ -191,12 +191,7 @@ export const Campaign: CollectionConfig = {
     beforeChange: [
       ({ req, operation, data }) => {
         if (req.user) {
-          // if (operation === 'create') {
-          //   data.updatedBy = req.user.id
-          //   data.createdBy = req.user.id
-          // } else if (operation === 'update') {
           data.createdBy = req.user.id
-          //}
           return data
         }
       },

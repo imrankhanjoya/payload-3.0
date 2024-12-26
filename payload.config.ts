@@ -16,6 +16,11 @@ import { Socialmedia } from '@/app/collections/Socialmedia'
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { ApprovalRequest } from '@/app/collections/ApprovalRequest'
+import { Influencer } from '@/app/collections/Influencer'
+import { Achivements } from '@/app/collections/achivements'
+import { Experience } from '@/app/collections/exprience'
+import { Infuencerbrands } from '@/app/collections/Infuencerbrand'
+import { Engagement } from '@/app/collections/Engagement'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -30,8 +35,22 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   editor: lexicalEditor(),
   // collections: [Post, Campaign, User, Pages, Media],
-  csrf:["http://localhost:3000","https://onionpose.com","https://payload-3-0-pi.vercel.app"],
-  collections: [Post, Brands, Socialmedia, Campaign, User, Pages, Media, ApprovalRequest],
+  csrf: ['http://localhost:3000', 'https://onionpose.com', 'https://payload-3-0-pi.vercel.app'],
+  collections: [
+    Post,
+    Brands,
+    Socialmedia,
+    Campaign,
+    Influencer,
+    Achivements,
+    Experience,
+    Infuencerbrands,
+    Engagement,
+    User,
+    Pages,
+    Media,
+    ApprovalRequest,
+  ],
   plugins: [
     vercelBlobStorage({
       enabled: true, // Optional, defaults to true
@@ -90,4 +109,5 @@ export default buildConfig({
     }
   },
   sharp,
+  // endpoints: [forceLoginEndpoint],
 })

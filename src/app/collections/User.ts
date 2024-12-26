@@ -33,7 +33,7 @@ export const User: CollectionConfig = {
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
-        // { label: 'Influencer', value: 'influencer' },
+        { label: 'Influencer', value: 'influencer' },
         // { label: 'User', value: 'user' },
       ],
       required: true,

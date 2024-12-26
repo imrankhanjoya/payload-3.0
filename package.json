@@ -32,6 +32,7 @@
     "cross-env": "^7.0.3",
     "graphql": "^16.8.2",
     "imagekit": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.0.0-canary.104",
     "nvm": "^0.0.4",
     "payload": "3.0.0-canary.0374de4",
