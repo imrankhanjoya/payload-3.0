@@ -3,12 +3,12 @@ import { isAdminOrSelf } from '@/access/isAdminOrSelf'
 import type { CollectionConfig } from 'payload'
 export const Achivement: CollectionConfig = {
   slug: 'achivements',
-  // access: {
-  //   create: isAdminOrSelf,
-  //   update: isAdminOrSelf,
-  //   read: isAdminOrSelf,
-  //   delete: isAdmin,
-  // },
+  access: {
+    create: isAdminOrSelf,
+    update: isAdminOrSelf,
+    read: isAdminOrSelf,
+    delete: isAdmin,
+  },
 
   fields: [
     {
