@@ -48,6 +48,11 @@ export const Influencer: CollectionConfig = {
       type: 'richText',
     },
     {
+      name: 'website',
+      label: 'Website',
+      type: 'text',
+    },
+    {
       name: 'industry',
       label: 'Industry',
       type: 'select',
