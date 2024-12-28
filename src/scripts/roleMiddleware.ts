@@ -43,7 +43,7 @@ const allCollections = {
   ],
 }
 
-const getCollectionsByRole = (role) => {
+const getCollectionsByRole = (role:any) => {
   console.log('🚀 Brij  ~  file: payload.config.ts:58 ~  getCollectionsByRole ~  role:', role)
 
   switch (role) {
