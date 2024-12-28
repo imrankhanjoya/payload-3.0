@@ -29,6 +29,11 @@ export const Influencer: CollectionConfig = {
       label: 'Bio',
       type: 'richText',
     },
+    {
+      name: 'website',
+      label: 'Webstie',
+      type: 'text',
+    },
 
     {
       name: 'industry',
