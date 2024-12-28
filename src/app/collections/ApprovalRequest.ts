@@ -10,9 +10,9 @@ export const ApprovalRequest: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
-  admin: {
-    //hidden: isAdmin() ? true : false,
-  },
+  // admin: {
+  //   hidden: isAdmin() ? true : false,
+  // },
   fields: [
     {
       name: 'username',
@@ -45,10 +45,7 @@ export const ApprovalRequest: CollectionConfig = {
         await addDataAndFileToRequest(req)
         console.log('🚀 Brij  ~  file: ApprovalRequest.ts:30 ~  handler: ~  data:', data)
 
-        const result = await req.payload.create({
-          collection: 'approval-request',
-          data,
-        })
+        const result = await req.payload.create({collection: 'approval-request',data,})
 
         return Response.json(
           {
