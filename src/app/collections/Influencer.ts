@@ -1,14 +1,34 @@
-import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrSelf } from '@/access/isAdminOrEditor'
 import type { CollectionConfig } from 'payload'
+
 export const Influencer: CollectionConfig = {
   slug: 'influencers',
-  // access: {
-  //   create: isAdminOrSelf,
-  //   update: isAdminOrSelf,
-  //   read: isAdminOrSelf,
-  //   delete: isAdmin,
-  // },
+  access: {
+    read: ({ req: { user } }) => {
+      if (!user) return false // Deny access if no user is logged in
+      if (user.role === 'admin') return true // Admins can read all records
+      if (user.role === 'influencer') {
+        return { infuencer: { equals: user.id } } // Influencers can only read their own records
+      }
+      return false // Deny access for all other roles
+    },
+    create: ({ req: { user } }) => {
+      if (!user) return false // Deny if no user
+      //      return user.role === 'influencer' || user.role === 'admin' // Allow influencers and admins to create
+      return user.role === 'admin' // Allow influencers and admins to create
+    },
+    update: ({ req: { user } }) => {
+      if (!user) return false // Deny if no user
+      if (user.role === 'admin') return true // Admins can update all records
+      if (user.role === 'influencer') {
+        return { infuencer: { equals: user.id } } // Influencers can only update their own records
+      }
+      return false // Deny for all other roles
+    },
+    delete: ({ req: { user } }) => {
+      if (!user) return false // Deny if no user
+      return user.role === 'admin' // Only admins can delete records
+    },
+  },
 
   fields: [
     {
@@ -17,7 +37,6 @@ export const Influencer: CollectionConfig = {
       type: 'text',
       required: true,
     },
-
     {
       name: 'userid',
       label: 'Userid',
@@ -29,7 +48,6 @@ export const Influencer: CollectionConfig = {
       label: 'Bio',
       type: 'richText',
     },
-
     {
       name: 'industry',
       label: 'Industry',
@@ -41,7 +59,6 @@ export const Influencer: CollectionConfig = {
         { label: 'Travel', value: 'travels' },
       ],
     },
-
     {
       name: 'country',
       label: 'Country',
@@ -57,7 +74,6 @@ export const Influencer: CollectionConfig = {
         position: 'sidebar',
       },
     },
-
     {
       name: 'state',
       label: 'State',
@@ -66,13 +82,11 @@ export const Influencer: CollectionConfig = {
         position: 'sidebar',
       },
     },
-
     {
       name: 'turnaroundtime',
       label: 'Turn Around Time',
       type: 'text',
     },
-
     {
       name: 'image',
       label: 'Image',
@@ -80,19 +94,16 @@ export const Influencer: CollectionConfig = {
       relationTo: 'media',
       required: false,
     },
-
     {
       name: 'infuencer',
       label: 'Select User',
       type: 'relationship',
       relationTo: 'users',
       access: {
-        update: () => true,
+        update: ({ req: { user } }) => user.role === 'admin', // Only admins can update this field
       },
       admin: {
-        // readOnly: true,
         position: 'sidebar',
-        // condition: (data) => !!data?.createdBy,
       },
     },
   ],
@@ -100,10 +111,10 @@ export const Influencer: CollectionConfig = {
   hooks: {
     beforeChange: [
       ({ req, operation, data }) => {
-        if (req.user) {
-          //data.createdBy = req.user.id
-          return data
+        if (req.user && operation === 'create') {
+          data.infuencer = req.user.id // Automatically associate record with the logged-in user
         }
+        return data
       },
     ],
   },

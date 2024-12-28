@@ -290,21 +290,7 @@ export interface Achivement {
   id: string;
   title: string;
   date?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description: string;
   createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
@@ -317,21 +303,7 @@ export interface Experience {
   id: string;
   title: string;
   startdate?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description: string;
   infuencer?: (string | null) | User;
   createdBy?: (string | null) | User;
   updatedAt: string;
@@ -345,21 +317,7 @@ export interface Infuencerbrand {
   id: string;
   title: string;
   url?: string | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description: string;
   brandlogo?: (string | null) | Media;
   Infuencer?: (string | null) | User;
   createdBy?: (string | null) | User;
