@@ -1,12 +1,12 @@
 import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdminOrInfluencer } from '@/access/isAdminOrInfluencer'
 import type { CollectionConfig } from 'payload'
 export const Handlers: CollectionConfig = {
   slug: 'handlers',
   access: {
-    create: isAdminOrSelf,
-    update: isAdminOrSelf,
-    read: isAdminOrSelf,
+    create: isAdminOrInfluencer,
+    update: isAdminOrInfluencer,
+    read: isAdminOrInfluencer,
     delete: isAdmin,
   },
 
@@ -21,7 +21,12 @@ export const Handlers: CollectionConfig = {
       name: 'site',
       label: 'Socail Media Site',
       type: 'select',
-      options:[{label:"Facebook",value:"facebook"},{label:"Twitter",value:"twitter"},{label:"Instagram",value:"instagram"},{label:"TikTok",value:"tiktok"}],
+      options: [
+        { label: 'Facebook', value: 'facebook' },
+        { label: 'Twitter', value: 'twitter' },
+        { label: 'Instagram', value: 'instagram' },
+        { label: 'TikTok', value: 'tiktok' },
+      ],
       required: true,
     },
     {
@@ -56,7 +61,6 @@ export const Handlers: CollectionConfig = {
         // condition: (data) => !!data?.createdBy,
       },
     },
-    
   ],
 
   hooks: {
