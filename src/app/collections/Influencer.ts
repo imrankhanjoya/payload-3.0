@@ -1,10 +1,10 @@
-import type { CollectionConfig } from 'payload'
+import { ObjectId } from 'mongodb'
 
 export const Influencer: CollectionConfig = {
   slug: 'influencers',
   access: {
     read: ({ req: { user } }) => {
-      if (!user) return false // Deny access if no user is logged in
+      if (!user) return false // Deny access if no user
       if (user.role === 'admin') return true // Admins can read all records
       if (user.role === 'influencer') {
         return { infuencer: { equals: user.id } } // Influencers can only read their own records
@@ -12,24 +12,22 @@ export const Influencer: CollectionConfig = {
       return false // Deny access for all other roles
     },
     create: ({ req: { user } }) => {
-      if (!user) return false // Deny if no user
-      //      return user.role === 'influencer' || user.role === 'admin' // Allow influencers and admins to create
-      return user.role === 'admin' // Allow influencers and admins to create
+      if (!user) return false
+      return user.role === 'admin' // Only admins can create
     },
     update: ({ req: { user } }) => {
-      if (!user) return false // Deny if no user
+      if (!user) return false
       if (user.role === 'admin') return true // Admins can update all records
       if (user.role === 'influencer') {
         return { infuencer: { equals: user.id } } // Influencers can only update their own records
       }
-      return false // Deny for all other roles
+      return false
     },
     delete: ({ req: { user } }) => {
-      if (!user) return false // Deny if no user
-      return user.role === 'admin' // Only admins can delete records
+      if (!user) return false
+      return user.role === 'admin' // Only admins can delete
     },
   },
-
   fields: [
     {
       name: 'name',
@@ -98,21 +96,34 @@ export const Influencer: CollectionConfig = {
       name: 'infuencer',
       label: 'Select User',
       type: 'relationship',
-      relationTo: 'users',
+      relationTo: 'users', // Reference to the `users` collection
       access: {
-        update: ({ req: { user } }) => user.role === 'admin', // Only admins can update this field
+        update: ({ req: { user } }) => user?.role === 'admin', // Only admins can update
       },
       admin: {
         position: 'sidebar',
       },
     },
   ],
-
   hooks: {
     beforeChange: [
-      ({ req, operation, data }) => {
-        if (req.user && operation === 'create') {
-          data.infuencer = req.user.id // Automatically associate record with the logged-in user
+      async ({ req, operation, data }) => {
+        // Check if the operation is CREATE or UPDATE
+        if (req.user) {
+          // If a user is selected in the dropdown, save their ObjectId
+          if (data.infuencer && typeof data.infuencer === 'string') {
+            try {
+              data.infuencer = data.infuencer.toString()
+              //data.infuencer = new ObjectId(data.infuencer) // Convert to ObjectId
+            } catch (e) {
+              console.error('Invalid infuencer ID:', e)
+            }
+          }
+
+          // Auto-assign the logged-in user as the creator if creating a new record
+          if (operation === 'create') {
+            data.createdBy = new ObjectId(req.user.id) // Set the creator
+          }
         }
         return data
       },
