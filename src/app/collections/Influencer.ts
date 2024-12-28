@@ -58,9 +58,15 @@ export const Influencer: CollectionConfig = {
       type: 'select',
       hasMany: true,
       options: [
-        { label: 'Fashion', value: 'fashion' },
-        { label: 'Health', value: 'health' },
-        { label: 'Travel', value: 'travels' },
+        { label: 'Fashion and Beauty', value: 'Fashion and Beauty' },
+        { label: 'Travel and Hospitality', value: 'Travel and Hospitality' },
+        { label: 'Technology and Gadgets', value: 'Technology and Gadgets' },
+        { label: 'Parenting and Family', value: 'Travel and Hospitality' },
+        { label: 'Health and Fitness', value: 'Health and Fitness' },
+        { label: 'Food and Beverage', value: 'Food and Beverage' },
+        { label: 'Finance and Investment', value: 'Finance and Investment' },
+        { label: 'Entertainment', value: 'Entertainment' },
+        { label: 'Gaming', value: 'Gaming' },
       ],
     },
     {
