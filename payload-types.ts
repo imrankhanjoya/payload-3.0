@@ -318,6 +318,7 @@ export interface Experience {
     [k: string]: unknown;
   };
   infuencer?: (string | null) | User;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -345,6 +346,7 @@ export interface Infuencerbrand {
     [k: string]: unknown;
   };
   Infuencer?: (string | null) | User;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -372,6 +374,7 @@ export interface Engagement {
     [k: string]: unknown;
   };
   Infuencer?: (string | null) | User;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }

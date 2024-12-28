@@ -1,12 +1,14 @@
 import type { CollectionConfig } from 'payload'
-import checkRoleAccess from '@/app/middleware/roleMiddleware'
+import { isAdminOrEditor } from '@/access/isAdminOrEditor'
+import { isAdmin } from '@/access/isAdmin'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
   access: {
-    read: checkRoleAccess(['admin']),
-    update: checkRoleAccess(['admin']),
-    delete: checkRoleAccess(['admin']),
+    read: isAdminOrEditor,
+    create: isAdminOrEditor,
+    update: isAdminOrEditor,
+    delete: isAdmin,
   },
   admin: {
     useAsTitle: 'title',

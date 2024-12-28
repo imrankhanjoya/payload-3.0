@@ -1,14 +1,14 @@
 import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdminOrInfluencer } from '@/access/isAdminOrInfluencer'
 import type { CollectionConfig } from 'payload'
 export const Achivement: CollectionConfig = {
   slug: 'achivements',
-  // access: {
-  //   create: isAdminOrSelf,
-  //   update: isAdminOrSelf,
-  //   read: isAdminOrSelf,
-  //   delete: isAdmin,
-  // },
+  access: {
+    create: isAdminOrInfluencer,
+    update: isAdminOrInfluencer,
+    read: isAdminOrInfluencer,
+    delete: isAdmin,
+  },
 
   fields: [
     {
@@ -50,7 +50,8 @@ export const Achivement: CollectionConfig = {
     beforeChange: [
       ({ req, operation, data }) => {
         if (req.user) {
-          //  data.createdBy = req.user.id
+          // if (req.user.role == 'influencer')
+          data.createdBy = req.user.id
           return data
         }
       },

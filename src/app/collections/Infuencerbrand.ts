@@ -1,14 +1,15 @@
 import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdminOrEditor } from '@/access/isAdminOrEditor'
+import { isAdminOrInfluencer } from '@/access/isAdminOrInfluencer'
 import type { CollectionConfig } from 'payload'
 export const Infuencerbrands: CollectionConfig = {
   slug: 'infuencerbrands',
-  // access: {
-  //   create: isAdminOrSelf,
-  //   update: isAdminOrSelf,
-  //   read: isAdminOrSelf,
-  //   delete: isAdmin,
-  // },
+  access: {
+    create: isAdminOrInfluencer,
+    update: isAdminOrInfluencer,
+    read: isAdminOrInfluencer,
+    delete: isAdminOrInfluencer,
+  },
 
   fields: [
     {
@@ -42,6 +43,20 @@ export const Infuencerbrands: CollectionConfig = {
         // readOnly: true,
         position: 'sidebar',
         // condition: (data) => !!data?.createdBy,
+      },
+    },
+
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'users',
+      // access: {
+      //   update: () => false,
+      // },
+      admin: {
+        // readOnly: true,
+        position: 'sidebar',
+        condition: (data) => !!data?.createdBy,
       },
     },
   ],

@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 import { isAdmin } from '@/access/isAdmin'
 
 export const User: CollectionConfig = {
@@ -9,8 +9,8 @@ export const User: CollectionConfig = {
   },
   access: {
     create: isAdmin,
-    update: isAdminOrSelf,
-    read: isAdminOrSelf,
+    update: isAdminOrEditor,
+    read: isAdminOrEditor,
     delete: isAdmin,
   },
   admin: {
@@ -28,7 +28,7 @@ export const User: CollectionConfig = {
       hasMany: false,
       access: {
         // create: isAdmin,
-        // update: isAdminOrSelf,
+        // update: isAdminOrEditor,
       },
       options: [
         { label: 'Admin', value: 'admin' },

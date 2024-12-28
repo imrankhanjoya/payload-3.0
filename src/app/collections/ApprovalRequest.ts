@@ -1,18 +1,18 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+// import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 import { addDataAndFileToRequest } from '@payloadcms/next/utilities'
 
 export const ApprovalRequest: CollectionConfig = {
   slug: 'approval-request',
-  // access: {
-  //   read: isAdmin,
-  //   update: isAdmin,
-  //   delete: isAdmin,
-  // },
-  // admin: {
-  //   hidden: isAdmin ? false : true,
-  // },
+  access: {
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
+  },
+  admin: {
+    hidden: isAdmin ? false : true,
+  },
   fields: [
     {
       name: 'username',

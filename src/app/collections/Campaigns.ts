@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload'
-import { isAdminOrSelf } from '@/access/isAdminOrSelf'
+import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 import { isAdmin } from '@/access/isAdmin'
 export const Campaign: CollectionConfig = {
   slug: 'campaigns',
   access: {
-    create: isAdminOrSelf,
-    update: isAdminOrSelf,
-    read: isAdminOrSelf,
+    create: isAdminOrEditor,
+    update: isAdminOrEditor,
+    read: isAdminOrEditor,
     delete: isAdmin,
   },
   admin: {
