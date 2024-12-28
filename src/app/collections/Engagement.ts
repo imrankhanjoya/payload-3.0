@@ -28,7 +28,7 @@ export const Engagement: CollectionConfig = {
     {
       name: 'description',
       label: 'Experience',
-      type: 'richText',
+      type: 'textarea',
       required: true,
     },
 
