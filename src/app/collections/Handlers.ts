@@ -17,7 +17,13 @@ export const Handlers: CollectionConfig = {
       type: 'text',
       required: true,
     },
-
+    {
+      name: 'site',
+      label: 'Socail Media Site',
+      type: 'select',
+      options:[{label:"Facebook",value:"facebook"},{label:"Twitter",value:"twitter"},{label:"Instagram",value:"instagram"},{label:"TikTok",value:"tiktok"}]
+      required: true,
+    },
     {
       name: 'url',
       label: 'Social media URL',
