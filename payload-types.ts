@@ -14,6 +14,7 @@ export interface Config {
     posts: Post;
     brands: Brand;
     socialmedia: Socialmedia;
+    handlers: Handler;
     campaigns: Campaign;
     influencers: Influencer;
     achivements: Achivement;
@@ -197,6 +198,20 @@ export interface Socialmedia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "handlers".
+ */
+export interface Handler {
+  id: string;
+  title: string;
+  site: 'facebook' | 'twitter' | 'instagram' | 'tiktok';
+  url?: string | null;
+  createdBy?: (string | null) | User;
+  infuencer?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "campaigns".
  */
 export interface Campaign {
@@ -258,6 +273,7 @@ export interface Influencer {
     };
     [k: string]: unknown;
   } | null;
+  website?: string | null;
   industry?: ('fashion' | 'health' | 'travels')[] | null;
   country: 'IN' | 'ID' | 'TH' | 'SG';
   state?: string | null;
@@ -435,6 +451,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'socialmedia';
         value: string | Socialmedia;
+      } | null)
+    | ({
+        relationTo: 'handlers';
+        value: string | Handler;
       } | null)
     | ({
         relationTo: 'campaigns';
