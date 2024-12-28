@@ -63,7 +63,7 @@ const getCollectionsByRole = (role:any) => {
 //   req.role = req.user?.role || 'viewer' // Default to 'viewer'
 //   next()
 // }
-export const roleMiddleware = (req, res, next) => {
+export const roleMiddleware = (req:any, res:any, next:any) => {
   const role = req?.user?.role || 'viewer' // Determine user role
   req.filteredCollections = getCollectionsByRole(role) // Set filtered collections in req
   next()
