@@ -36,6 +36,21 @@ export const Handlers: CollectionConfig = {
         condition: (data) => !!data?.createdBy,
       },
     },
+    {
+      name: 'infuencer',
+      label: 'Select User',
+      type: 'relationship',
+      relationTo: 'users',
+      access: {
+        update: () => true,
+      },
+      admin: {
+        // readOnly: true,
+        position: 'sidebar',
+        // condition: (data) => !!data?.createdBy,
+      },
+    },
+    
   ],
 
   hooks: {
