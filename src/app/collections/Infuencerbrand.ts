@@ -28,7 +28,7 @@ export const Infuencerbrands: CollectionConfig = {
     {
       name: 'description',
       label: 'Experience',
-      type: 'richText',
+      type: 'textarea',
       required: true,
     },
 

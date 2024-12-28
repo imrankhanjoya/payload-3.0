@@ -27,10 +27,9 @@ export const Achivement: CollectionConfig = {
     {
       name: 'description',
       label: 'Description',
-      type: 'richText',
+      type: 'textarea',
       required: true,
     },
-
     {
       name: 'createdBy',
       type: 'relationship',
@@ -39,7 +38,7 @@ export const Achivement: CollectionConfig = {
       //   update: () => false,
       // },
       admin: {
-        // readOnly: true,
+        readOnly: true,
         position: 'sidebar',
         condition: (data) => !!data?.createdBy,
       },
@@ -50,6 +49,7 @@ export const Achivement: CollectionConfig = {
     beforeChange: [
       ({ req, operation, data }) => {
         if (req.user) {
+          console.log(req.user)
           // if (req.user.role == 'influencer')
           data.createdBy = req.user.id
           return data

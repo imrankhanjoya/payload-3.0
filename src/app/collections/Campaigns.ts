@@ -146,7 +146,7 @@ export const Campaign: CollectionConfig = {
       type: 'relationship',
       relationTo: 'socialmedia',
       admin: {
-        // readOnly: true,
+        readOnly: true,
         position: 'sidebar',
         //   condition: (data) => !!data?.createdBy,
       },

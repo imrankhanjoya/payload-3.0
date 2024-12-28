@@ -27,7 +27,7 @@ export const Experience: CollectionConfig = {
     {
       name: 'description',
       label: 'Experience',
-      type: 'richText',
+      type: 'textarea',
       required: true,
     },
 
