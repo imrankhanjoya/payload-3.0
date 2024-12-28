@@ -33,6 +33,13 @@ export const Infuencerbrands: CollectionConfig = {
     },
 
     {
+      name: 'brandlogo',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
+
+    {
       name: 'Infuencer',
       type: 'relationship',
       relationTo: 'users',

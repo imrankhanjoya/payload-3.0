@@ -7,6 +7,8 @@ export const isInfluencer: Access = ({ req: { user } }) => {
 
   const role = user.role
 
+  console.log('🚀 Brij  ~  file: isInfluencer.tsx:10 ~  user:', user)
+
   // Full access for admin
   if (role === 'admin') {
     return true
@@ -15,7 +17,7 @@ export const isInfluencer: Access = ({ req: { user } }) => {
   // Restrict influencers to their own data
   if (role === 'influencer') {
     return {
-      createdBy: {
+      influencer: {
         equals: user.id, // Only allow access to their own data
       },
     }

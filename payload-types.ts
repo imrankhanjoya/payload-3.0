@@ -273,7 +273,6 @@ export interface Influencer {
     };
     [k: string]: unknown;
   } | null;
-  website?: string | null;
   industry?: ('fashion' | 'health' | 'travels')[] | null;
   country: 'IN' | 'ID' | 'TH' | 'SG';
   state?: string | null;
@@ -361,6 +360,7 @@ export interface Infuencerbrand {
     };
     [k: string]: unknown;
   };
+  brandlogo?: (string | null) | Media;
   Infuencer?: (string | null) | User;
   createdBy?: (string | null) | User;
   updatedAt: string;

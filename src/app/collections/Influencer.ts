@@ -1,14 +1,14 @@
 import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrEditor } from '@/access/isAdminOrEditor'
+import { isAdminOrSelf } from '@/access/isAdminOrEditor'
 import type { CollectionConfig } from 'payload'
 export const Influencer: CollectionConfig = {
   slug: 'influencers',
-  access: {
-    create: isAdminOrEditor,
-    update: isAdminOrEditor,
-    read: isAdminOrEditor,
-    delete: isAdmin,
-  },
+  // access: {
+  //   create: isAdminOrSelf,
+  //   update: isAdminOrSelf,
+  //   read: isAdminOrSelf,
+  //   delete: isAdmin,
+  // },
 
   fields: [
     {
@@ -28,11 +28,6 @@ export const Influencer: CollectionConfig = {
       name: 'bio',
       label: 'Bio',
       type: 'richText',
-    },
-    {
-      name: 'website',
-      label: 'Webstie',
-      type: 'text',
     },
 
     {
