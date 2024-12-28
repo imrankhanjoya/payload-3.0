@@ -13,6 +13,7 @@ import { User } from '@/app/collections/User'
 import { Media } from '@/app/collections/Media'
 import { Brands } from '@/app/collections/Brands'
 import { Socialmedia } from '@/app/collections/Socialmedia'
+import { Handlers } from '@/app/collections/Handlers'
 
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -41,6 +42,7 @@ export default buildConfig({
     Post,
     Brands,
     Socialmedia,
+    Handlers,
     Campaign,
     Influencer,
     Achivement,
