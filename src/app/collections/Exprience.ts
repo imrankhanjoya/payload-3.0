@@ -22,7 +22,7 @@ export const Experience: CollectionConfig = {
     },
 
     {
-      name: 'startdate',
+      name: 'date',
       label: 'Start date',
       type: 'date',
     },
@@ -32,6 +32,11 @@ export const Experience: CollectionConfig = {
       label: 'Experience',
       type: 'textarea',
       required: true,
+    },
+     {
+      name: 'url',
+      label: 'Post url',
+      type: 'text',
     },
     {
       name: 'infuencer',
