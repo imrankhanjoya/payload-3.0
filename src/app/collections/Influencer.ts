@@ -56,6 +56,11 @@ export const Influencer: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'experiance',
+      label: 'Years of experience',
+      type: 'number',
+    },
+    {
       name: 'industry',
       label: 'Industry',
       type: 'select',
