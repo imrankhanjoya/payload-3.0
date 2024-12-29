@@ -8,11 +8,11 @@ export const Experience: CollectionConfig = {
     create: isAdminOrInfluencer,
     update: isAdminOrInfluencer,
     read: isAdminOrInfluencer,
-    delete: isAdmin,
+    delete: isAdminOrInfluencer,
   },
-  admin: {
-    useAsTitle: 'title',
-  },
+  // admin: {
+  //   useAsTitle: 'title',
+  // },
   fields: [
     {
       name: 'title',
@@ -43,6 +43,19 @@ export const Experience: CollectionConfig = {
       },
       admin: {
         position: 'sidebar',
+      },
+    },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'users',
+      // access: {
+      //   update: () => false,
+      // },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: (data) => !!data?.createdBy,
       },
     },
   ],
