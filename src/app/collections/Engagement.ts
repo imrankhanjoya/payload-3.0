@@ -13,25 +13,18 @@ export const Engagement: CollectionConfig = {
 
   fields: [
     {
-      name: 'title',
-      label: 'Title',
-      type: 'text',
-      required: true,
-    },
-
-    {
-      name: 'number',
-      label: 'Numbers',
-      type: 'number',
-    },
-
-    {
-      name: 'description',
-      label: 'Experience',
+      name: 'detail',
+      label: 'Detail about engagement',
       type: 'textarea',
       required: true,
     },
-
+    {
+      name: 'screen',
+      label: 'Engagement Screen',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+    },
     {
       name: 'infuencer',
       label: 'Select User',
