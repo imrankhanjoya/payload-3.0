@@ -273,7 +273,19 @@ export interface Influencer {
     };
     [k: string]: unknown;
   } | null;
-  industry?: ('fashion' | 'health' | 'travels')[] | null;
+  website?: string | null;
+  industry?:
+    | (
+        | 'Fashion and Beauty'
+        | 'Travel and Hospitality'
+        | 'Technology and Gadgets'
+        | 'Health and Fitness'
+        | 'Food and Beverage'
+        | 'Finance and Investment'
+        | 'Entertainment'
+        | 'Gaming'
+      )[]
+    | null;
   country: 'IN' | 'ID' | 'TH' | 'SG';
   state?: string | null;
   turnaroundtime?: string | null;
@@ -305,7 +317,6 @@ export interface Experience {
   startdate?: string | null;
   description: string;
   infuencer?: (string | null) | User;
-  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -319,7 +330,7 @@ export interface Infuencerbrand {
   url?: string | null;
   description: string;
   brandlogo?: (string | null) | Media;
-  Infuencer?: (string | null) | User;
+  infuencer?: (string | null) | User;
   createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
@@ -332,22 +343,8 @@ export interface Engagement {
   id: string;
   title: string;
   number?: number | null;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  Infuencer?: (string | null) | User;
+  description: string;
+  infuencer?: (string | null) | User;
   createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;

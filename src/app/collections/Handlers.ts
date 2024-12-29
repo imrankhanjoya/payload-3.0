@@ -9,7 +9,9 @@ export const Handlers: CollectionConfig = {
     read: isAdminOrInfluencer,
     delete: isAdmin,
   },
-
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
       name: 'title',
@@ -65,7 +67,8 @@ export const Handlers: CollectionConfig = {
     beforeChange: [
       ({ req, operation, data }) => {
         if (req.user) {
-          //  data.createdBy = req.user.id
+          // if (req.user.role == 'influencer')
+          data.createdBy = req.user.id
           return data
         }
       },
