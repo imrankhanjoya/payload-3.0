@@ -9,7 +9,9 @@ export const Achivement: CollectionConfig = {
     read: isAdminOrInfluencer,
     delete: isAdmin,
   },
-
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
       name: 'title',

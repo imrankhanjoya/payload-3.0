@@ -2,6 +2,9 @@ import { ObjectId } from 'mongodb'
 
 export const Influencer: CollectionConfig = {
   slug: 'influencers',
+  admin: {
+    useAsTitle: 'name',
+  },
   access: {
     read: ({ req: { user } }) => {
       if (!user) return false // Deny access if no user

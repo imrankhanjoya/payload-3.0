@@ -1,5 +1,3 @@
-import { isAdmin } from '@/access/isAdmin'
-import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 import { isAdminOrInfluencer } from '@/access/isAdminOrInfluencer'
 import type { CollectionConfig } from 'payload'
 export const Infuencerbrands: CollectionConfig = {
@@ -10,7 +8,9 @@ export const Infuencerbrands: CollectionConfig = {
     read: isAdminOrInfluencer,
     delete: isAdminOrInfluencer,
   },
-
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
       name: 'title',

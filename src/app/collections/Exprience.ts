@@ -10,6 +10,9 @@ export const Experience: CollectionConfig = {
     read: isAdminOrInfluencer,
     delete: isAdmin,
   },
+  admin: {
+    useAsTitle: 'title',
+  },
   fields: [
     {
       name: 'title',
