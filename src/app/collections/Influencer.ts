@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import type { CollectionConfig } from 'payload'
 
 export const Influencer: CollectionConfig = {
   slug: 'influencers',
@@ -50,14 +51,25 @@ export const Influencer: CollectionConfig = {
       type: 'richText',
     },
     {
+      name: 'website',
+      label: 'Website',
+      type: 'text',
+    },
+    {
       name: 'industry',
       label: 'Industry',
       type: 'select',
       hasMany: true,
       options: [
-        { label: 'Fashion', value: 'fashion' },
-        { label: 'Health', value: 'health' },
-        { label: 'Travel', value: 'travels' },
+        { label: 'Fashion and Beauty', value: 'Fashion and Beauty' },
+        { label: 'Travel and Hospitality', value: 'Travel and Hospitality' },
+        { label: 'Technology and Gadgets', value: 'Technology and Gadgets' },
+        { label: 'Parenting and Family', value: 'Travel and Hospitality' },
+        { label: 'Health and Fitness', value: 'Health and Fitness' },
+        { label: 'Food and Beverage', value: 'Food and Beverage' },
+        { label: 'Finance and Investment', value: 'Finance and Investment' },
+        { label: 'Entertainment', value: 'Entertainment' },
+        { label: 'Gaming', value: 'Gaming' },
       ],
     },
     {

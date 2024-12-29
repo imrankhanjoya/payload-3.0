@@ -33,31 +33,16 @@ export const Experience: CollectionConfig = {
       type: 'textarea',
       required: true,
     },
-
     {
       name: 'infuencer',
+      label: 'Select User',
       type: 'relationship',
-      relationTo: 'users',
-      // access: {
-      //   update: () => true,
-      // },
-      admin: {
-        // readOnly: true,
-        position: 'sidebar',
-        // condition: (data) => !!data?.createdBy,
+      relationTo: 'users', // Reference to the `users` collection
+      access: {
+        update: ({ req: { user } }) => user?.role === 'admin', // Only admins can update
       },
-    },
-    {
-      name: 'createdBy',
-      type: 'relationship',
-      relationTo: 'users',
-      // access: {
-      //   update: () => false,
-      // },
       admin: {
-        // readOnly: true,
         position: 'sidebar',
-        condition: (data) => !!data?.createdBy,
       },
     },
   ],

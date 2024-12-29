@@ -11,7 +11,7 @@ export const ApprovalRequest: CollectionConfig = {
     delete: isAdmin,
   },
   // admin: {
-  //   hidden: isAdmin() ? true : false,
+  //   hidden: isAdmin ? true : false,
   // },
   fields: [
     {

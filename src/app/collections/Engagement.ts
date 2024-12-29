@@ -28,21 +28,20 @@ export const Engagement: CollectionConfig = {
     {
       name: 'description',
       label: 'Experience',
-      type: 'richText',
+      type: 'textarea',
       required: true,
     },
 
     {
-      name: 'Infuencer',
+      name: 'infuencer',
+      label: 'Select User',
       type: 'relationship',
-      relationTo: 'users',
+      relationTo: 'users', // Reference to the `users` collection
       access: {
-        update: () => true,
+        update: ({ req: { user } }) => user?.role === 'admin', // Only admins can update
       },
       admin: {
-        // readOnly: true,
         position: 'sidebar',
-        // condition: (data) => !!data?.createdBy,
       },
     },
 

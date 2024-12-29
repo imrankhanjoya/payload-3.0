@@ -43,7 +43,7 @@ const allCollections = {
   ],
 }
 
-const getCollectionsByRole = (role) => {
+const getCollectionsByRole = (role:any) => {
   console.log('🚀 Brij  ~  file: payload.config.ts:58 ~  getCollectionsByRole ~  role:', role)
 
   switch (role) {
@@ -63,7 +63,7 @@ const getCollectionsByRole = (role) => {
 //   req.role = req.user?.role || 'viewer' // Default to 'viewer'
 //   next()
 // }
-export const roleMiddleware = (req, res, next) => {
+export const roleMiddleware = (req:any, res:any, next:any) => {
   const role = req?.user?.role || 'viewer' // Determine user role
   req.filteredCollections = getCollectionsByRole(role) // Set filtered collections in req
   next()
