@@ -274,6 +274,7 @@ export interface Influencer {
     [k: string]: unknown;
   } | null;
   website?: string | null;
+  experiance?: number | null;
   industry?:
     | (
         | 'Fashion and Beauty'
@@ -314,9 +315,11 @@ export interface Achivement {
 export interface Experience {
   id: string;
   title: string;
-  startdate?: string | null;
+  date?: string | null;
   description: string;
+  url?: string | null;
   infuencer?: (string | null) | User;
+  createdBy?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -341,9 +344,8 @@ export interface Infuencerbrand {
  */
 export interface Engagement {
   id: string;
-  title: string;
-  number?: number | null;
-  description: string;
+  detail: string;
+  screen?: (string | null) | Media;
   infuencer?: (string | null) | User;
   createdBy?: (string | null) | User;
   updatedAt: string;
