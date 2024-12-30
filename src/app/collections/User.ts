@@ -59,7 +59,7 @@ export const User: CollectionConfig = {
         const userCollection = 'users' // Replace with your auth-enabled collection slug
         // const email = 'avi@gmail.com'
         const { email } = req.routeParams
-
+        console.log(email)
         const userDocs = await payload.find({
           collection: userCollection,
           where: {
@@ -72,7 +72,7 @@ export const User: CollectionConfig = {
         })
 
         if (userDocs.totalDocs === 0) {
-          return Response.json({ error: 'User not found.' }) // res.status(400).json({ error: 'User not found.' })
+          return Response.json({ error: 'User not found.',email }) // res.status(400).json({ error: 'User not found.' })
         }
 
         const user = userDocs.docs[0]
