@@ -8,11 +8,11 @@ export const Experience: CollectionConfig = {
     create: isAdminOrInfluencer,
     update: isAdminOrInfluencer,
     read: isAdminOrInfluencer,
-    delete: isAdmin,
+    delete: isAdminOrInfluencer,
   },
-  admin: {
-    useAsTitle: 'title',
-  },
+  // admin: {
+  //   useAsTitle: 'title',
+  // },
   fields: [
     {
       name: 'title',
@@ -22,7 +22,7 @@ export const Experience: CollectionConfig = {
     },
 
     {
-      name: 'startdate',
+      name: 'date',
       label: 'Start date',
       type: 'date',
     },
@@ -32,6 +32,11 @@ export const Experience: CollectionConfig = {
       label: 'Experience',
       type: 'textarea',
       required: true,
+    },
+     {
+      name: 'url',
+      label: 'Post url',
+      type: 'text',
     },
     {
       name: 'infuencer',
@@ -43,6 +48,19 @@ export const Experience: CollectionConfig = {
       },
       admin: {
         position: 'sidebar',
+      },
+    },
+    {
+      name: 'createdBy',
+      type: 'relationship',
+      relationTo: 'users',
+      // access: {
+      //   update: () => false,
+      // },
+      admin: {
+        readOnly: true,
+        position: 'sidebar',
+        condition: (data) => !!data?.createdBy,
       },
     },
   ],
