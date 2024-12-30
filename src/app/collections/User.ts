@@ -61,14 +61,8 @@ export const User: CollectionConfig = {
         const { email } = req.routeParams
         console.log(email)
         const userDocs = await payload.find({
-          collection: userCollection,
-          where: {
-            email: {
-              equals: email,
-            },
-          },
-          depth: 0,
-          limit: 1,
+          collection: 'users',
+          where: {email: {equals: email}},
         })
 
         if (userDocs.totalDocs === 0) {
