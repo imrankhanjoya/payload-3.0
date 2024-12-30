@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@payloadcms/graphql": "3.0.0-canary.0374de4",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20.14.9",
     "@types/react": "npm:types-react@19.0.0-rc.0",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
