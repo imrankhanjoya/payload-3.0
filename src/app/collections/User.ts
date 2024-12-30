@@ -72,7 +72,7 @@ export const User: CollectionConfig = {
         })
 
         if (userDocs.totalDocs === 0) {
-          return Response.json({ error: 'User not found.',email }) // res.status(400).json({ error: 'User not found.' })
+          return Response.json({ error: 'User not found.',email,userDocs }) // res.status(400).json({ error: 'User not found.' })
         }
 
         const user = userDocs.docs[0]
