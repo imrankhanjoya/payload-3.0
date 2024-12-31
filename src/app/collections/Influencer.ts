@@ -4,7 +4,9 @@ import type { CollectionConfig } from 'payload'
 export const Influencer: CollectionConfig = {
   slug: 'influencers',
   admin: {
+    description:"Create your introduction",
     useAsTitle: 'name',
+    
   },
   access: {
     read: ({ req: { user } }) => {

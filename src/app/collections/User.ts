@@ -27,6 +27,10 @@ export const User: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'oniontoken',
+      type: 'text',
+    },
+    {
       name: 'role',
       type: 'select',
       saveToJWT: true,
