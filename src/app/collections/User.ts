@@ -5,6 +5,7 @@ import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 import jwt from 'jsonwebtoken'
 import { cookies } from 'next/headers'
+import { addDataAndFileToRequest } from '@payloadcms/next/utilities'
 
 export const User: CollectionConfig = {
   slug: 'users',
@@ -14,7 +15,7 @@ export const User: CollectionConfig = {
   access: {
     create: isAdmin,
     update: isAdminOrEditor,
-    read: isAdminOrEditor,
+    read:isAdminOrEditor,
     delete: isAdmin,
   },
   admin: {
@@ -51,6 +52,31 @@ export const User: CollectionConfig = {
 
   endpoints: [
     {
+      
+      path: '/:add-request',
+      method: 'post',
+      handler: async (req: any) => {
+        const data = await req?.json()
+        await addDataAndFileToRequest(req)
+        console.log('🚀 Brij  ~  file: ApprovalRequest.ts:30 ~  handler: ~  data:', data)
+        const result = await req.payload.create({collection: 'users',data,})
+        data.userid = result.id
+        data.infuencer = result.id
+        const resultval = await req.payload.create({collection: 'influencers',data,})
+        return Response.json({message: `Data successfully added!`,result: result,resultval},
+          {
+            headers: {
+              'Access-Control-Allow-Origin': '*', // Adjust the origin as needed
+              'Access-Control-Allow-Methods': 'POST, OPTIONS',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            },
+          },
+        )
+      },
+              
+          
+    },
+    {
       path: '/oauth:email',
       method: 'get',
       handler: async (req:any) => {
@@ -58,11 +84,12 @@ export const User: CollectionConfig = {
 
         const userCollection = 'users' // Replace with your auth-enabled collection slug
         // const email = 'avi@gmail.com'
+        
         const { email } = req.routeParams
-        console.log(email)
+        const cleanData = email.trim()
         const userDocs = await payload.find({
           collection: 'users',
-          where: {email: {equals: email}},
+          where: {email:{equals: cleanData}},
         })
 
         if (userDocs.totalDocs === 0) {
@@ -70,11 +97,7 @@ export const User: CollectionConfig = {
         }
 
         const user = userDocs.docs[0]
-        // const collectionConfig = payload.collections[userCollection]?.config;
-
-        // if (!collectionConfig) {
-        //   return res.status(500).json({ error: 'Collection configuration not found.' });
-        // }
+        
 
         const fieldsToSign = {
           email: user.email,

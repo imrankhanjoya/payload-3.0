@@ -81,7 +81,6 @@ export const Influencer: CollectionConfig = {
       name: 'country',
       label: 'Country',
       type: 'select',
-      required: true,
       options: [
         { label: 'India', value: 'IN' },
         { label: 'Indonesia', value: 'ID' },
