@@ -29,7 +29,7 @@ export const User: CollectionConfig = {
     {
       name: 'oniontoken',
       type: 'text',
-      required: true,
+      required: false,
     },
     {
       name: 'role',

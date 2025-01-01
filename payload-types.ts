@@ -162,7 +162,7 @@ export interface Media {
 export interface User {
   id: string;
   name?: string | null;
-  oniontoken: string;
+  oniontoken?: string | null;
   role: 'admin' | 'editor' | 'influencer';
   phone?: string | null;
   updatedAt: string;
