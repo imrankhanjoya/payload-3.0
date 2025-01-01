@@ -80,31 +80,32 @@ export const User: CollectionConfig = {
       },
     },
     {
-      path: '/oauth:email',
+      path: '/oauth:oniontoken',
       method: 'get',
       handler: async (req: any) => {
         const payload = await getPayloadHMR({ config: configPromise })
 
         const userCollection = 'users' // Replace with your auth-enabled collection slug
-        // const email = 'avi@gmail.com'
+        // const oniontoken = 'avi@gmail.com'
 
-        const { email } = req.routeParams
-        const cleanData = email.trim()
+        const { oniontoken } = req.routeParams
+        const cleanData = oniontoken.trim()
         const userDocs = await payload.find({
-          collection: 'users',
+          collection: userCollection,
           where: { oniontoken: { equals: cleanData } },
         })
 
         if (userDocs.totalDocs === 0) {
-          return Response.json({ error: 'User not found.', email, userDocs }) // res.status(400).json({ error: 'User not found.' })
+          return Response.json({ error: 'User not found.', oniontoken, userDocs }) // res.status(400).json({ error: 'User not found.' })
         }
 
         const user = userDocs.docs[0]
 
         const fieldsToSign = {
+          oniontoken: oniontoken,
           email: user.email,
           id: user.id,
-          collection: 'users',
+          collection: userCollection,
         }
 
         const token = jwt.sign(fieldsToSign, payload.secret, {
