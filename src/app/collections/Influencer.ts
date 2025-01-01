@@ -104,7 +104,7 @@ export const Influencer: CollectionConfig = {
     {
       name: 'publish',
       label: 'Publish',
-      type: 'boolen',
+      type: 'checkbox',
       admin: {
         position: 'sidebar',
       },
