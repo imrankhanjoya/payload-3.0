@@ -21,7 +21,6 @@ export interface Config {
     participants: Participant;
     brands: Brand;
     campaigns: Campaign;
-    'approval-request': ApprovalRequest;
     users: User;
     pages: Page;
     media: Media;
@@ -163,7 +162,7 @@ export interface User {
   id: string;
   name?: string | null;
   oniontoken?: string | null;
-  role: 'admin' | 'editor' | 'influencer';
+  role: 'admin' | 'editor' | 'influencer' | 'agency';
   phone?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -343,20 +342,6 @@ export interface Campaign {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "approval-request".
- */
-export interface ApprovalRequest {
-  id: string;
-  username?: string | null;
-  userbio?: string | null;
-  campaignId?: string | null;
-  userId?: string | null;
-  status?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -426,10 +411,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'campaigns';
         value: string | Campaign;
-      } | null)
-    | ({
-        relationTo: 'approval-request';
-        value: string | ApprovalRequest;
       } | null)
     | ({
         relationTo: 'users';

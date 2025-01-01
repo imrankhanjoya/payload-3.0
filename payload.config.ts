@@ -14,11 +14,10 @@ import { Media } from '@/app/collections/Media'
 import { Brands } from '@/app/collections/Brands'
 import { Socialmedia } from '@/app/collections/Socialmedia'
 import { Handlers } from '@/app/collections/Handlers'
-import {Participants} from "@/app/collections/Participants"
+import { Participants } from '@/app/collections/Participants'
 
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { ApprovalRequest } from '@/app/collections/ApprovalRequest'
 import { Influencer } from '@/app/collections/Influencer'
 import { Experience } from '@/app/collections/Exprience'
 import { Infuencerbrands } from '@/app/collections/Infuencerbrand'
@@ -51,7 +50,6 @@ export default buildConfig({
     Participants,
     Brands,
     Campaign,
-    ApprovalRequest,
     User,
     Pages,
     Media,

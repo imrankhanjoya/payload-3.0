@@ -44,7 +44,7 @@ export const User: CollectionConfig = {
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
         { label: 'Influencer', value: 'influencer' },
-        // { label: 'User', value: 'user' },
+        { label: 'Agency', value: 'agency' },
       ],
       required: true,
       defaultValue: 'Admin',
