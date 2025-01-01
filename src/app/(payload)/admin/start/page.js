@@ -20,7 +20,7 @@ const Profile = () => {
     headers: myHeaders,
     };
 
-    const val = await fetch("/api/users/oauth"+email)
+    const val = await fetch("/api/users/oauth"+token)
     .then((response) => response.text())
     .then((result) => console.log(result))
     .catch((error) => console.error(error));
@@ -29,7 +29,7 @@ const Profile = () => {
 
   }
   useEffect(()=>{
-    //
+    userlogin()
   })
   return (
     <main className="flex flex-col items-center gap-8 row-start-2 lg:w-[80%] w-[99%]   ">
