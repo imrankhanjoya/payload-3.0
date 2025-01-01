@@ -102,7 +102,6 @@ export const User: CollectionConfig = {
         const user = userDocs.docs[0]
 
         const fieldsToSign = {
-          oniontoken: oniontoken,
           email: user.email,
           id: user.id,
           collection: userCollection,
