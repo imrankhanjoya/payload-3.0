@@ -1,9 +1,13 @@
 "use client"
 import { useEffect, useState } from "react"
 import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation'
 
 const Profile = () => {
   const [email,setEmail] = useState("")
+  const searchParams = useSearchParams()
+ 
+  const token = searchParams.get('token')
 
   const userlogin = async ()=>{
     const myHeaders = new Headers();
@@ -29,7 +33,7 @@ const Profile = () => {
   })
   return (
     <main className="flex flex-col items-center gap-8 row-start-2 lg:w-[80%] w-[99%]   ">
-    <h2 className="text-xl font-extrabold">Manage your profile</h2>
+    <h2 className="text-xl font-extrabold">Manage your profile {token}</h2>
     <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
     <button onClick={userlogin}>Login</button>
     <section className=" body-font w-full" >
