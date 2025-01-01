@@ -34,8 +34,6 @@ const Profile = () => {
   return (
     <main className="flex flex-col items-center gap-8 row-start-2 lg:w-[80%] w-[99%]   ">
     <h2 className="text-xl font-extrabold">Manage your profile {token}</h2>
-    <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Email"/>
-    <button onClick={userlogin}>Login</button>
     <section className=" body-font w-full" >
   </section>
   </main>
