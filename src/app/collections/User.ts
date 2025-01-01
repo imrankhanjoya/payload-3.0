@@ -63,7 +63,7 @@ export const User: CollectionConfig = {
       handler: async (req: any) => {
         const data = await req?.json()
         await addDataAndFileToRequest(req)
-        console.log('🚀 Brij  ~  file: ApprovalRequest.ts:30 ~  handler: ~  data:', data)
+        console.log('🚀 Brij 90 ~  file: ApprovalRequest.ts:30 ~  handler: ~  data:', data)
         const result = await req.payload.create({collection: 'users',data,})
         data.userid = result.id
         data.infuencer = result.id

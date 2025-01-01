@@ -102,6 +102,14 @@ export const Influencer: CollectionConfig = {
       },
     },
     {
+      name: 'publish',
+      label: 'Publish',
+      type: 'boolen',
+      admin: {
+        position: 'sidebar',
+      },
+    },
+    {
       name: 'turnaroundtime',
       label: 'Turn Around Time',
       type: 'text',
