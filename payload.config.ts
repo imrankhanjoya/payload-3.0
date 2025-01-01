@@ -14,6 +14,7 @@ import { Media } from '@/app/collections/Media'
 import { Brands } from '@/app/collections/Brands'
 import { Socialmedia } from '@/app/collections/Socialmedia'
 import { Handlers } from '@/app/collections/Handlers'
+import {Participants} from "@/app/collections/Participants"
 
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
@@ -47,6 +48,7 @@ export default buildConfig({
     Infuencerbrands,
     Engagement,
     Socialmedia,
+    Participants,
     Brands,
     Campaign,
     ApprovalRequest,
