@@ -15,7 +15,7 @@ export const User: CollectionConfig = {
   access: {
     create: isAdmin,
     update: isAdminOrEditor,
-    read:isAdminOrEditor,
+    read: isAdminOrEditor,
     delete: isAdmin,
   },
   admin: {
@@ -57,18 +57,18 @@ export const User: CollectionConfig = {
 
   endpoints: [
     {
-      
       path: '/:add-request',
       method: 'post',
       handler: async (req: any) => {
         const data = await req?.json()
         await addDataAndFileToRequest(req)
         console.log('🚀 Brij 90 ~  file: ApprovalRequest.ts:30 ~  handler: ~  data:', data)
-        const result = await req.payload.create({collection: 'users',data,})
+        const result = await req.payload.create({ collection: 'users', data })
         data.userid = result.id
         data.infuencer = result.id
-        const resultval = await req.payload.create({collection: 'influencers',data,})
-        return Response.json({message: `Data successfully added!`,result: result,resultval},
+        const resultval = await req.payload.create({ collection: 'influencers', data })
+        return Response.json(
+          { message: `Data successfully added!`, result: result, resultval },
           {
             headers: {
               'Access-Control-Allow-Origin': '*', // Adjust the origin as needed
@@ -78,31 +78,28 @@ export const User: CollectionConfig = {
           },
         )
       },
-              
-          
     },
     {
       path: '/oauth:email',
       method: 'get',
-      handler: async (req:any) => {
+      handler: async (req: any) => {
         const payload = await getPayloadHMR({ config: configPromise })
 
         const userCollection = 'users' // Replace with your auth-enabled collection slug
         // const email = 'avi@gmail.com'
-        
+
         const { email } = req.routeParams
         const cleanData = email.trim()
         const userDocs = await payload.find({
           collection: 'users',
-          where: {email:{equals: cleanData}},
+          where: { oniontoken: { equals: cleanData } },
         })
 
         if (userDocs.totalDocs === 0) {
-          return Response.json({ error: 'User not found.',email,userDocs }) // res.status(400).json({ error: 'User not found.' })
+          return Response.json({ error: 'User not found.', email, userDocs }) // res.status(400).json({ error: 'User not found.' })
         }
 
         const user = userDocs.docs[0]
-        
 
         const fieldsToSign = {
           email: user.email,

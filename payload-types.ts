@@ -11,20 +11,20 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
-    posts: Post;
-    brands: Brand;
-    socialmedia: Socialmedia;
-    handlers: Handler;
-    campaigns: Campaign;
     influencers: Influencer;
+    handlers: Handler;
     achivements: Achivement;
     experiences: Experience;
     infuencerbrands: Infuencerbrand;
     engagements: Engagement;
+    socialmedia: Socialmedia;
+    participants: Participant;
+    brands: Brand;
+    campaigns: Campaign;
+    'approval-request': ApprovalRequest;
     users: User;
     pages: Page;
     media: Media;
-    'approval-request': ApprovalRequest;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -58,38 +58,13 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "influencers".
  */
-export interface Post {
+export interface Influencer {
   id: string;
-  title: string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "brands".
- */
-export interface Brand {
-  id: string;
-  title?: string | null;
-  content?: {
+  name: string;
+  userid: string;
+  bio?: {
     root: {
       type: string;
       children: {
@@ -104,8 +79,26 @@ export interface Brand {
     };
     [k: string]: unknown;
   } | null;
-  brandlogo?: (string | null) | Media;
-  createdBy?: (string | null) | User;
+  website?: string | null;
+  experiance?: number | null;
+  industry?:
+    | (
+        | 'Fashion and Beauty'
+        | 'Travel and Hospitality'
+        | 'Technology and Gadgets'
+        | 'Health and Fitness'
+        | 'Food and Beverage'
+        | 'Finance and Investment'
+        | 'Entertainment'
+        | 'Gaming'
+      )[]
+    | null;
+  country?: ('IN' | 'ID' | 'TH' | 'SG') | null;
+  state?: string | null;
+  publish?: boolean | null;
+  turnaroundtime?: string | null;
+  image?: (string | null) | Media;
+  infuencer?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -169,6 +162,7 @@ export interface Media {
 export interface User {
   id: string;
   name?: string | null;
+  oniontoken: string;
   role: 'admin' | 'editor' | 'influencer';
   phone?: string | null;
   updatedAt: string;
@@ -187,17 +181,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "socialmedia".
- */
-export interface Socialmedia {
-  id: string;
-  title?: string | null;
-  slug?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "handlers".
  */
 export interface Handler {
@@ -206,91 +189,6 @@ export interface Handler {
   site: 'facebook' | 'twitter' | 'instagram' | 'tiktok';
   url?: string | null;
   createdBy?: (string | null) | User;
-  infuencer?: (string | null) | User;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "campaigns".
- */
-export interface Campaign {
-  id: string;
-  title: string;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  country: 'IN' | 'ID' | 'TH' | 'SG';
-  state?: string | null;
-  agerange: '18-20' | '21-30' | '31-40' | '41-50' | '51-60' | '60+';
-  gender: 'Male' | 'Female' | 'Both';
-  startdate?: string | null;
-  enddate?: string | null;
-  campaignImage1?: (string | null) | Media;
-  campaignImage2?: (string | null) | Media;
-  campaignImage3?: (string | null) | Media;
-  createdBy?: (string | null) | User;
-  brand?: (string | null) | Brand;
-  socialmedia?: (string | null) | Socialmedia;
-  budget?: number | null;
-  rate: 'commission' | 'perpost' | 'discount';
-  ratevalue?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "influencers".
- */
-export interface Influencer {
-  id: string;
-  name: string;
-  userid: string;
-  bio?: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  website?: string | null;
-  experiance?: number | null;
-  industry?:
-    | (
-        | 'Fashion and Beauty'
-        | 'Travel and Hospitality'
-        | 'Technology and Gadgets'
-        | 'Health and Fitness'
-        | 'Food and Beverage'
-        | 'Finance and Investment'
-        | 'Entertainment'
-        | 'Gaming'
-      )[]
-    | null;
-  country: 'IN' | 'ID' | 'TH' | 'SG';
-  state?: string | null;
-  turnaroundtime?: string | null;
-  image?: (string | null) | Media;
   infuencer?: (string | null) | User;
   updatedAt: string;
   createdAt: string;
@@ -353,6 +251,112 @@ export interface Engagement {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialmedia".
+ */
+export interface Socialmedia {
+  id: string;
+  title?: string | null;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "participants".
+ */
+export interface Participant {
+  id: string;
+  username?: string | null;
+  userbio?: string | null;
+  campaignId?: string | null;
+  userId?: string | null;
+  status?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands".
+ */
+export interface Brand {
+  id: string;
+  title?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  brandlogo?: (string | null) | Media;
+  createdBy?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "campaigns".
+ */
+export interface Campaign {
+  id: string;
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  country: 'IN' | 'ID' | 'TH' | 'SG';
+  state?: string | null;
+  agerange: '18-20' | '21-30' | '31-40' | '41-50' | '51-60' | '60+';
+  gender: 'Male' | 'Female' | 'Both';
+  startdate?: string | null;
+  enddate?: string | null;
+  campaignImage1?: (string | null) | Media;
+  campaignImage2?: (string | null) | Media;
+  campaignImage3?: (string | null) | Media;
+  createdBy?: (string | null) | User;
+  brand?: (string | null) | Brand;
+  socialmedia?: (string | null) | Socialmedia;
+  budget?: number | null;
+  rate: 'commission' | 'perpost' | 'discount';
+  ratevalue?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "approval-request".
+ */
+export interface ApprovalRequest {
+  id: string;
+  username?: string | null;
+  userbio?: string | null;
+  campaignId?: string | null;
+  userId?: string | null;
+  status?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
 export interface Page {
@@ -378,48 +382,18 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "approval-request".
- */
-export interface ApprovalRequest {
-  id: string;
-  username?: string | null;
-  userbio?: string | null;
-  campaignId?: string | null;
-  userId?: string | null;
-  status?: string | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
-        relationTo: 'posts';
-        value: string | Post;
-      } | null)
-    | ({
-        relationTo: 'brands';
-        value: string | Brand;
-      } | null)
-    | ({
-        relationTo: 'socialmedia';
-        value: string | Socialmedia;
+        relationTo: 'influencers';
+        value: string | Influencer;
       } | null)
     | ({
         relationTo: 'handlers';
         value: string | Handler;
-      } | null)
-    | ({
-        relationTo: 'campaigns';
-        value: string | Campaign;
-      } | null)
-    | ({
-        relationTo: 'influencers';
-        value: string | Influencer;
       } | null)
     | ({
         relationTo: 'achivements';
@@ -438,6 +412,26 @@ export interface PayloadLockedDocument {
         value: string | Engagement;
       } | null)
     | ({
+        relationTo: 'socialmedia';
+        value: string | Socialmedia;
+      } | null)
+    | ({
+        relationTo: 'participants';
+        value: string | Participant;
+      } | null)
+    | ({
+        relationTo: 'brands';
+        value: string | Brand;
+      } | null)
+    | ({
+        relationTo: 'campaigns';
+        value: string | Campaign;
+      } | null)
+    | ({
+        relationTo: 'approval-request';
+        value: string | ApprovalRequest;
+      } | null)
+    | ({
         relationTo: 'users';
         value: string | User;
       } | null)
@@ -448,10 +442,6 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
-      } | null)
-    | ({
-        relationTo: 'approval-request';
-        value: string | ApprovalRequest;
       } | null);
   globalSlug?: string | null;
   _lastEdited: {
