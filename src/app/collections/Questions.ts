@@ -1,4 +1,4 @@
-import { CollectionConfig } from "payload/types";
+import type { CollectionConfig } from 'payload'
 
 const statusFields = [
   {
@@ -27,10 +27,10 @@ export const Questions: CollectionConfig = {
       if (!user) return false;
       const { role, instituteId } = user;
       if (role === "admin") return true;
-      if (role === "accountmanager" && instituteId?.id) {
+      if (role === "accountmanager" && instituteId) {
         return {
           instituteId: {
-            equals: instituteId.id,
+            equals: instituteId,
           },
         };
       }

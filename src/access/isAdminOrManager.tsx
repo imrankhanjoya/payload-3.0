@@ -8,7 +8,7 @@ export const isAdminOrManager: Access = ({ req: { user } }) => {
   const { role, instituteId } = user
 
   // Full access for admin
-  if (role === 'admin') {
+  if (role=='admin') {
     return true // Allow admin full access
   }
 
@@ -24,7 +24,7 @@ export const isAdminOrManager: Access = ({ req: { user } }) => {
 
     return {
       instituteId: {
-        equals: instituteId?.id, // Match the Object ID directly
+        equals: instituteId, // Match the Object ID directly
       },
     }
   }

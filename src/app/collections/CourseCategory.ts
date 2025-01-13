@@ -11,15 +11,15 @@ export const CourseCategory: CollectionConfig = {
       const { role, instituteId } = user;
 
       // Admins can read all categories
-      if (role === 'admin') {
+      if (role?.includes('admin')) {
         return true;
       }
 
       // Account managers can only read categories from their institute
-      if (role === 'accountmanager' && instituteId?.id) {
+      if (role === 'accountmanager' && instituteId) {
         return {
           instituteId: {
-            equals: instituteId.id, // Ensure the instituteId matches
+            equals: instituteId, // Ensure the instituteId matches
           },
         };
       }
@@ -85,7 +85,7 @@ export const CourseCategory: CollectionConfig = {
       },
       hooks: {
         beforeValidate: [
-          ({ data, user }) => {
+          ({ data, user }:any) => {
             if (user?.instituteId) {
               // Auto-fill the field with the logged-in user's instituteId
               data.instituteId = user.instituteId
