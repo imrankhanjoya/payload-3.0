@@ -307,6 +307,7 @@ export interface Brand {
 export interface Campaign {
   id: string;
   title: string;
+  campurl?: string | null;
   description: {
     root: {
       type: string;

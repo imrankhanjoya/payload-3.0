@@ -25,6 +25,14 @@ export const Campaign: CollectionConfig = {
       required: true,
     },
     {
+      name: 'campurl',
+      label: 'Url',
+      type: 'text',
+      admin:{
+        placeholder: 'Add link for campaign if required',
+      }
+    },
+    {
       name: 'description',
       label: 'Description',
       type: 'richText',
