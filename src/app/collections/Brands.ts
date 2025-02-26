@@ -1,13 +1,16 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin } from '@/access/isAdmin'
+import { createBrand } from '@/access/createBrand'
+import { readBrand } from '@/access/readBrand'
+import { editBrand } from '@/access/editBrand'
 import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 
 export const Brands: CollectionConfig = {
   slug: 'brands',
   access: {
-    read: isAdminOrEditor,
-    create: isAdminOrEditor,
-    update: isAdminOrEditor,
+    read: readBrand,
+    create: createBrand,
+    update: editBrand,
     delete: isAdmin,
   },
   admin: {

@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 import { isAdmin } from '@/access/isAdmin'
+import { updateUser } from '@/access/updateUser'
+import { readUser } from '@/access/readUser'
 import { getPayloadHMR } from '@payloadcms/next/utilities'
 import configPromise from '@payload-config'
 import jwt from 'jsonwebtoken'
@@ -14,8 +16,8 @@ export const User: CollectionConfig = {
   },
   access: {
     create: isAdmin,
-    update: isAdminOrEditor,
-    read: isAdminOrEditor,
+    update: updateUser,
+    read: readUser,
     delete: isAdmin,
   },
   admin: {
@@ -37,8 +39,8 @@ export const User: CollectionConfig = {
       saveToJWT: true,
       hasMany: false,
       access: {
-        // create: isAdmin,
-        // update: isAdminOrEditor,
+        create: ()=> true,
+        update: ()=> true,
       },
       options: [
         { label: 'Admin', value: 'admin' },

@@ -5,7 +5,7 @@ import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 export const Socialmedia: CollectionConfig = {
   slug: 'socialmedia',
   access: {
-    read: isAdmin,
+    read: ()=>true,
     create: isAdmin,
     update: isAdmin,
     delete: isAdmin,

@@ -1,14 +1,19 @@
 import type { CollectionConfig } from 'payload'
-import { isAdminOrEditor } from '@/access/isAdminOrEditor'
 import { isAdmin } from '@/access/isAdmin'
+import { createBrand } from '@/access/createBrand'
+import { readBrand } from '@/access/readBrand'
+import { editBrand } from '@/access/editBrand'
+
 export const Campaign: CollectionConfig = {
   slug: 'campaigns',
   access: {
-    create: isAdminOrEditor,
-    update: isAdminOrEditor,
-    read: isAdminOrEditor,
+    create: createBrand,
+    update: editBrand,
+    read: readBrand,
     delete: isAdmin,
   },
+  
+  
   admin: {
     useAsTitle: 'title',
   },
@@ -93,6 +98,31 @@ export const Campaign: CollectionConfig = {
       type: 'date',
     },
     {
+      name: 'campsteps',
+      label: 'Capmpaign Steps',
+      type: 'array',
+      fields: [
+        {
+          name: 'camfile',
+          type: 'textarea',
+          required: false,
+        }
+      ]
+    },
+    {
+      name: 'campfiles',
+      label: 'Capmpaign Files',
+      type: 'array',
+      fields: [
+        {
+          name: 'camfile',
+          type: 'upload',
+          relationTo: 'media',
+          required: false,
+        }
+      ]
+    },
+    {
       name: 'campaignImage1',
       label: 'Campaign Image1',
       type: 'upload',
@@ -146,9 +176,8 @@ export const Campaign: CollectionConfig = {
       type: 'relationship',
       relationTo: 'socialmedia',
       admin: {
-        readOnly: true,
+        // readOnly: true,
         position: 'sidebar',
-        //   condition: (data) => !!data?.createdBy,
       },
     },
 
