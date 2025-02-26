@@ -337,12 +337,10 @@ export interface Campaign {
   campfiles?:
     | {
         camfile?: (string | null) | Media;
+        mediadescription?: string | null;
         id?: string | null;
       }[]
     | null;
-  campaignImage1?: (string | null) | Media;
-  campaignImage2?: (string | null) | Media;
-  campaignImage3?: (string | null) | Media;
   createdBy?: (string | null) | User;
   brand?: (string | null) | Brand;
   socialmedia?: (string | null) | Socialmedia;

@@ -119,31 +119,15 @@ export const Campaign: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           required: false,
+        },
+        {
+          name: 'mediadescription',
+          type: 'textarea',
+          required: false,
         }
       ]
     },
-    {
-      name: 'campaignImage1',
-      label: 'Campaign Image1',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
-    },
-    {
-      name: 'campaignImage2',
-      label: 'Campaign Image2',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
-    },
-    {
-      name: 'campaignImage3',
-      label: 'Campaign Image3',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
-    },
-
+    
     {
       name: 'createdBy',
       type: 'relationship',
