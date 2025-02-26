@@ -36,6 +36,10 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   debug: true,
+  localization: {
+    locales: ['en', 'id', 'th'], // required
+    defaultLocale: 'en', // required
+  },
   editor: lexicalEditor(),
   // collections: [Post, Campaign, User, Pages, Media],
   csrf: ['http://localhost:3000', 'https://onionpose.com', 'https://payload-3-0-pi.vercel.app'],

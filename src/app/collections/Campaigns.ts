@@ -96,19 +96,26 @@ export const Campaign: CollectionConfig = {
       defaultValue: 'Male',
     },
     {
-      name: 'startdate',
-      label: 'Start date',
-      type: 'date',
+      type:"row",
+      fields:[
+        {
+          name: 'startdate',
+          label: 'Start date',
+          type: 'date',
+        },
+        {
+          name: 'enddate',
+          label: 'End date',
+          type: 'date',
+        },
+      ]
     },
-    {
-      name: 'enddate',
-      label: 'End date',
-      type: 'date',
-    },
+    
     {
       name: 'campsteps',
       label: 'Capmpaign Steps',
       type: 'array',
+      maxRows: 8,
       fields: [
         {
           name: 'camfile',
@@ -121,6 +128,7 @@ export const Campaign: CollectionConfig = {
       name: 'campfiles',
       label: 'Capmpaign Files',
       type: 'array',
+      maxRows: 5,
       fields: [
         {
           name: 'camfile',
