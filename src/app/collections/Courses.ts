@@ -48,10 +48,10 @@ export const Courses: CollectionConfig = {
 
       if (role === 'admin') return true;
 
-      if (role === 'accountmanager' && instituteId?.id) {
+      if (role === 'accountmanager' && instituteId) {
         return {
           instituteId: {
-            equals: instituteId.id,
+            equals: instituteId,
           },
         };
       }
@@ -63,14 +63,14 @@ export const Courses: CollectionConfig = {
       return user?.role === 'admin' || user?.role === 'accountmanager';
     },
     // Allow updates only by the creator or admin
-    update: ({ req: { user }, doc }) => {
+    update: ({ req: { user } }) => {
       if (!user) return false;
 
       if (user.role === 'admin') return true;
 
-      if (user.role === 'accountmanager') {
-        return doc?.createdBy?.toString() === user?.id;
-      }
+      // if (user.role === 'accountmanager') {
+      //   return doc?.createdBy?.toString() === user?.id;
+      // }
 
       return false;
     },

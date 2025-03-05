@@ -21,6 +21,7 @@ export const isAdminOrManager: Access = ({ req: { user } }) => {
       return false
     }
     console.log('🚀 Brij  ~  file: isAdminOrManager.tsx:2 ~  o:', user, instituteId)
+    return true
 
     return {
       instituteId: {

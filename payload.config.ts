@@ -137,8 +137,12 @@ export default buildConfig({
         collection: 'users',
         data: {
           email: 'dev@payloadcms.com',
+          username: 'admin',
+          name: 'Admin',
           password: 'test',
           role: 'admin', // Ensure the role is provided
+          token:"1234",
+          instituteId: '1234',
         },
       })
     }

@@ -37,7 +37,7 @@ export const CourseCategory: CollectionConfig = {
       ({ data, req }) => {
         if (req.user?.role === 'accountmanager') {
           // Automatically assign the instituteId
-          data.instituteId = req.user.instituteId?.id;
+          data.instituteId = req.user.instituteId;
         }
         return data;
       },
