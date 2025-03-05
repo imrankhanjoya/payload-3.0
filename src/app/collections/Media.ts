@@ -42,18 +42,8 @@ export const Media: CollectionConfig = {
       required: true,
     },
     {
-      name: 'description',
-      type: 'textarea',
-    },
-    {
-      name: 'tags',
-      type: 'array',
-      fields: [
-        {
-          name: 'tag',
-          type: 'text',
-        },
-      ],
+      name: 'category',
+      type: 'text',
     },
     {
       name: 'url',

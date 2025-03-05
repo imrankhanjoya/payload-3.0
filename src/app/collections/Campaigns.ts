@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { isAdmin } from '@/access/isAdmin'
 import { createBrand } from '@/access/createBrand'
-import { readBrand } from '@/access/readBrand'
+import { readCamp } from '@/access/readCamp'
 import { editBrand } from '@/access/editBrand'
 
 export const Campaign: CollectionConfig = {
@@ -9,7 +9,7 @@ export const Campaign: CollectionConfig = {
   access: {
     create: createBrand,
     update: editBrand,
-    read: readBrand,
+    read: readCamp,
     delete: isAdmin,
   },
   
