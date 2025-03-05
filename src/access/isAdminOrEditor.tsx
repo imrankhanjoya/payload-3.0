@@ -8,12 +8,12 @@ export const isAdminOrEditor: Access = ({ req: { user } }) => {
   const role = user.role
 
   // Full access for admin
-  if (role === 'admin') {
+  if (role?.includes('admin')) {
     return true
   }
 
   // Restrict influencers to their own data
-  if (role === 'editor') {
+  if (role?.includes('editor')) {
     return {
       createdBy: {
         equals: user.id, // Only allow access to their own data

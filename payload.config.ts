@@ -4,28 +4,54 @@ import { en } from 'payload/i18n/en'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { buildConfig, GlobalConfig } from 'payload'
+import { v4 as uuidv4 } from 'uuid';
+
 import sharp from 'sharp'
 import { fileURLToPath } from 'url'
-import { Post } from '@/app/collections/Posts'
-import { Campaign } from '@/app/collections/Campaigns'
-import { Pages } from '@/app/collections/Pages'
-import { User } from '@/app/collections/User'
-import { Media } from '@/app/collections/Media'
-import { Brands } from '@/app/collections/Brands'
-import { Socialmedia } from '@/app/collections/Socialmedia'
-import { Handlers } from '@/app/collections/Handlers'
-import { Participants } from '@/app/collections/Participants'
-
+import { Institute } from '@/app/collections/Institute'
+import { Users } from '@/app/collections/Users'
+import { CourseCategory } from '@/app/collections/CourseCategory'
+import { CourseModules } from '@/app/collections/CourseModules'
+import { Courses } from '@/app/collections/Courses'
+import { Questions } from '@/app/collections/Questions'
 // import ImageKit from 'imagekit'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
-import { Influencer } from '@/app/collections/Influencer'
-import { Experience } from '@/app/collections/Exprience'
-import { Infuencerbrands } from '@/app/collections/Infuencerbrand'
-import { Engagement } from '@/app/collections/Engagement'
-import { Achivement } from '@/app/collections/Achivement'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const statusFields = [
+  {
+    name: 'active',
+    type: 'checkbox',
+    label: 'Active',
+    defaultValue: true,
+  },
+  {
+    name: 'token',
+    type: 'text',
+    unique: true,
+    admin: {
+      readOnly: true,
+    },
+    hooks: {
+      beforeChange: ({ data }:any) => {
+        if (!data.token) {
+          data.token = uuidv4()
+        }
+        return data
+      },
+    },
+  },
+]
+
+const mediaField = {
+  name: 'image',
+  type: 'upload',
+  relationTo: 'media',
+  label: 'Image',
+}
+
 
 // Initialize ImageKit
 // const imagekit = new ImageKit({
@@ -36,27 +62,29 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   debug: true,
-  localization: {
-    locales: ['en', 'id', 'th'], // required
-    defaultLocale: 'en', // required
-  },
   editor: lexicalEditor(),
   // collections: [Post, Campaign, User, Pages, Media],
   csrf: ['http://localhost:3000', 'https://onionpose.com', 'https://payload-3-0-pi.vercel.app'],
   collections: [
-    Influencer,
-    Handlers,
-    Achivement,
-    Experience,
-    Infuencerbrands,
-    Engagement,
-    Socialmedia,
-    Participants,
-    Brands,
-    Campaign,
-    User,
-    Pages,
-    Media,
+    Users,
+    Institute,
+    CourseCategory,
+    Courses,
+    CourseModules,
+    Questions,
+    {
+      slug: 'pages',
+      admin: { useAsTitle: 'title' },
+      fields: [
+        { name: 'title', type: 'text', label: 'Page Title' },
+        { name: 'content', type: 'richText', label: 'Content' },
+      ],
+    },
+    {
+      slug: 'media',
+      upload: true,
+      fields: [{ name: 'text', type: 'text', label: 'Text' }],
+    },
   ],
   plugins: [
     vercelBlobStorage({
@@ -109,8 +137,12 @@ export default buildConfig({
         collection: 'users',
         data: {
           email: 'dev@payloadcms.com',
+          username: 'admin',
+          name: 'Admin',
           password: 'test',
           role: 'admin', // Ensure the role is provided
+          token:"1234",
+          instituteId: '1234',
         },
       })
     }
