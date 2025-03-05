@@ -11,6 +11,16 @@ export interface Config {
     users: UserAuthOperations;
   };
   collections: {
+    influencers: Influencer;
+    handlers: Handler;
+    achivements: Achivement;
+    experiences: Experience;
+    infuencerbrands: Infuencerbrand;
+    engagements: Engagement;
+    socialmedia: Socialmedia;
+    participants: Participant;
+    brands: Brand;
+    campaigns: Campaign;
     users: User;
     institute: Institute;
     coursecategories: Coursecategory;
@@ -27,7 +37,7 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {};
-  locale: null;
+  locale: 'en' | 'id' | 'th';
   user: User & {
     collection: 'users';
   };
@@ -52,6 +62,105 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "influencers".
+ */
+export interface Influencer {
+  id: string;
+  name: string;
+  userid: string;
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  website?: string | null;
+  experiance?: number | null;
+  industry?:
+    | (
+        | 'Fashion and Beauty'
+        | 'Travel and Hospitality'
+        | 'Technology and Gadgets'
+        | 'Health and Fitness'
+        | 'Food and Beverage'
+        | 'Finance and Investment'
+        | 'Entertainment'
+        | 'Gaming'
+      )[]
+    | null;
+  country?: ('IN' | 'ID' | 'TH' | 'SG') | null;
+  state?: string | null;
+  publish?: boolean | null;
+  turnaroundtime?: string | null;
+  image?: (string | null) | Media;
+  infuencer?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  title: string;
+  description?: string | null;
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  createdBy?: (string | null) | User;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    tablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -67,6 +176,9 @@ export interface User {
   token?: string | null;
   updatedAt: string;
   createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
   email: string;
   resetPasswordToken?: string | null;
   resetPasswordExpiration?: string | null;
@@ -287,6 +399,46 @@ export interface Page {
 export interface PayloadLockedDocument {
   id: string;
   document?:
+    | ({
+        relationTo: 'influencers';
+        value: string | Influencer;
+      } | null)
+    | ({
+        relationTo: 'handlers';
+        value: string | Handler;
+      } | null)
+    | ({
+        relationTo: 'achivements';
+        value: string | Achivement;
+      } | null)
+    | ({
+        relationTo: 'experiences';
+        value: string | Experience;
+      } | null)
+    | ({
+        relationTo: 'infuencerbrands';
+        value: string | Infuencerbrand;
+      } | null)
+    | ({
+        relationTo: 'engagements';
+        value: string | Engagement;
+      } | null)
+    | ({
+        relationTo: 'socialmedia';
+        value: string | Socialmedia;
+      } | null)
+    | ({
+        relationTo: 'participants';
+        value: string | Participant;
+      } | null)
+    | ({
+        relationTo: 'brands';
+        value: string | Brand;
+      } | null)
+    | ({
+        relationTo: 'campaigns';
+        value: string | Campaign;
+      } | null)
     | ({
         relationTo: 'users';
         value: string | User;
